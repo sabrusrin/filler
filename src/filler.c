@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 20:16:34 by chermist          #+#    #+#             */
-/*   Updated: 2019/06/05 00:09:39 by chermist         ###   ########.fr       */
+/*   Updated: 2019/07/07 23:09:28 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,59 @@
 
 void	save_data(int flag, t_map *in, char *line)
 {
-	
+	while (line)
+	{
+			
+	}
+		
 }
 
-void	parse(t_map *in)
+void	play_token(t_map *in, char **line)
 {
-	char	*line;
 
-	while (get_next_line(1,  &line))
+}
+
+void	play(t_map *in, char **line)
+{
+	char	*tmp;
+
+	ft_strdel(*line);
+	while (get_next_line(0,  *line))
 	{
-		if (ft_strstr(line, "$$$"))
-			save_data(0, in, line);
-		if (ft_strstr(line, "Plateau"))
-			save_data(1, in, line);
-			
-		free(line);
+		if (ft_strstr(*line, "Plateau"))
+		{
+			tmp = *line;
+			*line += 9;
+			y = atoi_move(line);
+			x = atoi_move(++(*line));
+			*line = tmp;
+			board = (char *)malloc(x * y + 1);
+			read_board()
+		}
+		if (ft_strstr(*line, "Piece"))
+			play_token(in, line);
+		ft_strdel(*line);
 	}
 }
 
 int main(void)
 {
-	int	i;
-	int j;
-	t_map in;
-
-	parse(&in);
-
+	int		i;
+	int 	j;
+	char	*line;
+	t_map 	in;
+	
+	get_next_line(0,  &line);
+	if (!line[10] || (line[10] != '1' && line[10] != '2'))
+		ft_putendl_fd("error about player position", 2);
+	else
+	{
+		in.player[0] = (line[10] == '1' ? 'O' : 'X');
+		in.player[1] = (line[10] == '1' ? 'X' : 'O');
+		while (1)
+			play(&in, &line);
+	}
+	
 	free(&in);
 	return (0);
 }

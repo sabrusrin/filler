@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 22:06:55 by chermist          #+#    #+#             */
-/*   Updated: 2019/06/05 00:09:36 by chermist         ###   ########.fr       */
+/*   Updated: 2019/07/07 23:09:31 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@
 
 typedef struct	s_map
 {
-	int			n;
+	int 		me;
+	int			y;
 	int			x;
-	char		*player[2];
+	char		player[2];
 	char		*board;
 }				t_map;
 
