@@ -1,5 +1,6 @@
-seed = 6749
-X: error on input
-players/carli.filler won
+seed = 6291
+O: timedout
+players/kek.filler: Segfault at 0
+players/superjeannot.filler won
 Score:
-16AGAINST15
+0AGAINST161
