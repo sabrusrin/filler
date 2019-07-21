@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 20:16:34 by chermist          #+#    #+#             */
-/*   Updated: 2019/07/21 01:45:56 by chermist         ###   ########.fr       */
+/*   Updated: 2019/07/21 23:42:38 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 #include "../libft/get_next_line.h"
 #include <fcntl.h>
 
-void	save_data(char **save, int x, int flag, int fd)
+void	save_data(char **save, int x, int y, int flag)
 {
 	char	*line;
 	char	*tmp;
 	int		i;
 	int		j;
-	static 	int f = 0;
+
 	i = 0;
-	j = (flag == 0) ? x : x + 1;
-	ft_putstr_fd("X\n", fd);
+	j = (flag == 0) ? y : y + 1;
+	line = NULL;
 	while (j--)
 	{
 		get_next_line(0, &line);
@@ -33,12 +33,6 @@ void	save_data(char **save, int x, int flag, int fd)
 			ft_memmove(&((*save)[i]), &(line[flag]), x);
 			i += x;
 		}
-		ft_putchar_fd('<', fd);
-		ft_putstr_fd(line, fd);
-		ft_putnbr_fd(flag, fd);
-		ft_putchar_fd('>', fd);
-		ft_putchar_fd('\n', fd);
-
 		line = tmp;
 		if (line)
 			ft_strdel(&line);
@@ -52,15 +46,16 @@ void	place_token(t_map *in)
 
 	write(in->fd, "Z\n", 2);
 	fd = open("rdmap", O_WRONLY);
-	ft_putchar_fd('&', fd);
-	write(fd, in->board, in->x * in->y);
-	ft_putchar_fd('&', fd);
+	ft_putchar_fd('&', in->fd);
+	write(in->fd, in->board, in->x * in->y);
+	ft_putchar_fd('&', in->fd);
 	write(fd, "\n", 1);
 	ft_putnbr(y);
 	ft_putchar(' ');
 	ft_putnbr(x);
 	ft_putchar('\n');
 	close(fd);
+	close(in->fd);
 }
 
 void	dims(char **line, int *x, int *y, int flag, t_map *in)
@@ -85,28 +80,26 @@ void	play(t_map *in)
 		{
 		write(in->fd, "3\n", 2);
 			dims(&line, &in->x, &in->y, 8, in);
-		write(in->fd, "H\n", 2);
-			if (!(in->board = (char*)malloc(in->x * in->y + 1)))
+			if (!(in->board = ft_strnew(in->x * in->y)))
 				exit (1);
-		ft_putstr_fd(line, in->fd);
-		ft_putchar_fd('\n', in->fd);
-
-			save_data(&(in->board), (in->y), 4, in->fd);
+			save_data(&(in->board), in->x, in->y, 4);
 		}
 		if (ft_strstr(line, "Piece"))
 		{
 		write(in->fd, "4\n", 2);
 			dims(&line, &in->tx, &in->ty, 6, in);
-			if (!(in->token = (char*)malloc(in->tx * in->ty + 1)))
+			if (!(in->tile = ft_strnew(in->tx * in->ty)))
 				exit (1);
-			save_data(&(in->token), in->ty, 0, in->fd);
+			save_data(&(in->tile), in->tx, in->ty, 0, in->fd);
 			place_token(in);
 		}
 		if (in->token)
-			ft_strdel(&(in->token));
+			ft_strdel(&(in->tile));
 		if (line)
 			ft_strdel(&line);
 	}
+	if (in->board)
+		ft_strdel(&(in->board));
 }
 
 int		init_player(t_map *in)
