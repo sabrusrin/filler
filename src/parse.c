@@ -6,44 +6,45 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 13:49:33 by chermist          #+#    #+#             */
-/*   Updated: 2019/07/22 19:02:59 by chermist         ###   ########.fr       */
+/*   Updated: 2019/07/23 20:57:10 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void	save_data(char **save, int x, int y, int flag, int fd)
+void	save_data(char ***save, int x, int y, int flag, int fd)
 {
 	char	*line;
 	char	*tmp;
-	char	*stmp;
 	int		i;
 	int		j;
 
 	i = 0;
-	j = (flag == 0) ? y : y + 1;
-	line = NULL;
-	stmp = *save;
-	while (j--)
+	j = 0;
+	if (flag)
+	{
+		get_next_line(0, &line);
+		ft_strdel(&line);
+	}
+	while (j++ < y)
 	{
 		get_next_line(0, &line);
 		tmp = line;
-		
-//		ft_putchar_fd('*', fd);
-//		ft_putstr_fd(line, fd);
-//		ft_putchar_fd('*', fd);
-//		ft_putchar_fd('\n', fd);
+		if (!line)		
+			continue ;
 		if (line && (line[0] != ' ' || flag == 0))
 		{
-			*save += i;
-			ft_memmove(*save, &(line[flag]), x);
-			i += x;
+			(*save)[i] = line + flag;
+		ft_putchar_fd('<', fd);
+		ft_putstr_fd(*(save)[i], fd);
+		ft_putnbr_fd(j, fd);
+		ft_putchar_fd('>', fd);
+		ft_putchar_fd('\n', fd);
+		i++;
 		}
 		line = tmp;
-		if (line)
-			ft_strdel(&line);
+		ft_strdel(&line);
 	}
-	*save = stmp;
 }
 
 void	dims(char **line, int *x, int *y, int flag)
