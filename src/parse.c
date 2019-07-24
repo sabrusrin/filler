@@ -6,13 +6,13 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 13:49:33 by chermist          #+#    #+#             */
-/*   Updated: 2019/07/23 20:57:10 by chermist         ###   ########.fr       */
+/*   Updated: 2019/07/24 22:33:26 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void	save_data(char ***save, int x, int y, int flag, int fd)
+void	save_data(t_data *save, int flag, int fd)
 {
 	char	*line;
 	char	*tmp;
@@ -26,7 +26,7 @@ void	save_data(char ***save, int x, int y, int flag, int fd)
 		get_next_line(0, &line);
 		ft_strdel(&line);
 	}
-	while (j++ < y)
+	while (j++ < save->y)
 	{
 		get_next_line(0, &line);
 		tmp = line;
@@ -34,16 +34,16 @@ void	save_data(char ***save, int x, int y, int flag, int fd)
 			continue ;
 		if (line && (line[0] != ' ' || flag == 0))
 		{
-			(*save)[i] = line + flag;
+			save->data[i] = line + flag;
 		ft_putchar_fd('<', fd);
-		ft_putstr_fd(*(save)[i], fd);
+		ft_putstr_fd(save->data[i], fd);
 		ft_putnbr_fd(j, fd);
 		ft_putchar_fd('>', fd);
 		ft_putchar_fd('\n', fd);
 		i++;
 		}
 		line = tmp;
-		ft_strdel(&line);
+//		ft_strdel(&line);
 	}
 }
 

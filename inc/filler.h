@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 22:06:55 by chermist          #+#    #+#             */
-/*   Updated: 2019/07/23 20:49:37 by chermist         ###   ########.fr       */
+/*   Updated: 2019/07/24 22:22:40 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,26 @@
 # include "libft.h"
 # include "get_next_line.h"
 
-typedef struct	s_tile
+typedef struct	s_data
 {
 	int		y;
 	int		x;
-	char	**token;
-}				t_tile;
+	char	**data;
+}				t_data;
 
-typedef struct	s_map
+typedef struct	s_game
 {
-	int			y;
-	int			x;
 	int			fd;
 	char		player[2];
-	char		**board;
-}				t_map;
+	int			**heat_map;
+	t_data		board;
+	t_data		tile;
+}				t_game;
 
-void			save_data(char ***save, int x, int y, int flag, int fd);
+void			save_data(t_data*save, int flag, int fd);
 void			dims(char **line, int *x, int *y, int flag);
-void			play(t_map *in, t_tile *tile);
-int				init_game(t_map *in, t_tile *tile);
+void			play(t_game *in);
+int				init_game(t_game *in);
 unsigned long	atoi_move_hex(char **str);
 int				atoi_move(char **str);
 

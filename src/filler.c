@@ -6,13 +6,13 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 20:16:34 by chermist          #+#    #+#             */
-/*   Updated: 2019/07/23 21:13:32 by chermist         ###   ########.fr       */
+/*   Updated: 2019/07/24 22:29:53 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void	place_token(t_map *in, t_tile *tile)
+void	place_token(t_game *in)
 {
 	int		fd;
 	int		y = 8, x = 2;
@@ -37,7 +37,7 @@ void	place_token(t_map *in, t_tile *tile)
 	close(in->fd);
 }
 
-void	play(t_map *in, t_tile *tile)
+void	play(t_game *in)
 {
 	char	*line;
 
@@ -48,32 +48,28 @@ void	play(t_map *in, t_tile *tile)
 		if (ft_strstr(line, "Plateau"))
 		{
 		write(in->fd, "3\n", 2);
-			if (in->x == 0 && in->y == 0)
-				dims(&line, &in->x, &in->y, 8);
-			if (in->board)
-				ft_arrdel((void**)(in->board));
-			if (!(in->board = (char**)malloc(sizeof(char*) * in->y)))
+			if (in->board.x == 0 && in->board.y == 0)
+				dims(&line, &in->board.x, &in->board.y, 8);
+			if (!(in->board.data = (char**)malloc(sizeof(char*) * in->board.y)))
 				exit (1);//have to free everything
-			save_data(&(in->board), in->x, in->y, 4, in->fd);
+			save_data(&(in->board), 4, in->fd);
 		}
 		if (ft_strstr(line, "Piece"))
 		{
 		write(in->fd, "4\n", 2);
-			dims(&line, &tile->x, &tile->y, 6);
-			if (tile->token)
-				ft_arrdel((void**)(tile->token));
-			if (!(tile->token = (char**)malloc(sizeof(char*) * tile->y)))
+			dims(&line, &in->tile.x, &in->tile.y, 6);
+			if (!(in->tile.data = (char**)malloc(sizeof(char*) * in->tile.y)))
 				exit (1);
-			save_data(&(tile->token), tile->x, tile->y, 0, in->fd);
-			place_token(in, tile);
+			save_data(&(in->tile), 0, in->fd);
+			place_token(in);
+			ft_arrdel((void**)(in->board.data));
+			ft_arrdel((void**)(in->tile.data));
 		}
 		ft_strdel(&line);
 	}
-//	if (in->board)
-//		ft_strdel(&(in->board));
 }
 
-int		init_game(t_map *in, t_tile *tile)
+int		init_game(t_game *in)
 {
 	char *line;
 
@@ -83,10 +79,10 @@ int		init_game(t_map *in, t_tile *tile)
 		in->player[0] = (ft_strstr(line, "p1")) ? 'O' : 'X';
 		in->player[1] = (ft_strstr(line, "p1")) ? 'X' : 'O';
 		ft_strdel(&line);
-		in->board = NULL;
-		tile->token = NULL;
-		in->y = 0;
-		in->x = 0;
+		in->board.data = NULL;
+		in->tile.data = NULL;
+		in->board.x = 0;
+		in->board.y = 0;
 		return (1);
 	}
 	return (0);
