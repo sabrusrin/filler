@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 13:49:33 by chermist          #+#    #+#             */
-/*   Updated: 2019/07/24 22:33:26 by chermist         ###   ########.fr       */
+/*   Updated: 2019/07/26 19:04:57 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,16 @@
 void	save_data(t_data *save, int flag, int fd)
 {
 	char	*line;
-	char	*tmp;
 	int		i;
 	int		j;
 
 	i = 0;
-	j = 0;
-	if (flag)
+	j = (!flag) ? save->y : save->y + 1;
+	while (j--)
 	{
 		get_next_line(0, &line);
-		ft_strdel(&line);
-	}
-	while (j++ < save->y)
-	{
-		get_next_line(0, &line);
-		tmp = line;
-		if (!line)		
-			continue ;
 		if (line && (line[0] != ' ' || flag == 0))
-		{
-			save->data[i] = line + flag;
-		ft_putchar_fd('<', fd);
-		ft_putstr_fd(save->data[i], fd);
-		ft_putnbr_fd(j, fd);
-		ft_putchar_fd('>', fd);
-		ft_putchar_fd('\n', fd);
-		i++;
-		}
-		line = tmp;
-//		ft_strdel(&line);
+			save->data[i++] = line + flag;
 	}
 }
 
