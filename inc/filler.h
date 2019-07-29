@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 22:06:55 by chermist          #+#    #+#             */
-/*   Updated: 2019/07/26 19:04:23 by chermist         ###   ########.fr       */
+/*   Updated: 2019/07/30 00:04:10 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void			save_data(t_data*save, int flag, int fd);
 void			dims(char **line, int *x, int *y, int flag);
 void			play(t_game *in);
 int				init_game(t_game *in);
+void			locate_players(t_game *in);
+void			heat_map(t_game *in);
 unsigned long	atoi_move_hex(char **str);
 int				atoi_move(char **str);
 
