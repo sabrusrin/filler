@@ -6,35 +6,33 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 20:16:34 by chermist          #+#    #+#             */
-/*   Updated: 2019/07/30 00:04:08 by chermist         ###   ########.fr       */
+/*   Updated: 2019/07/30 20:42:45 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void	place_token(t_game *in)
+void	play_token(t_game *in)
 {
 	int		fd;
-	int		y = 8, x = 2;
+	int		y = 12, x = 14;
 	static int i = 0;
 
 	write(in->fd, "Z\n", 2);
 	fd = open("rdmap", O_WRONLY);
-/*	ft_putchar_fd('&', in->fd);
-	write(in->fd, in->board, in->x * in->y);
-	ft_putnbr_fd(i, in->fd);
 	ft_putchar_fd('&', in->fd);
 	write(in->fd, "\n", 1);
+	heat_map(in);
+	write(in->fd, "\n", 1);
 	ft_putchar_fd('&', in->fd);
-	write(in->fd, tile->token, tile->x * tile->y);
-	ft_putchar_fd('&', in->fd);
-	write(in->fd, "\n", 1);*/
+//	heat_map(in);
+//	place_it(in);
 	ft_putnbr(y);
 	ft_putchar(' ');
 	ft_putnbr(x);
 	ft_putchar('\n');
 //	close(fd);
-	close(in->fd);
+//	close(in->fd);
 }
 
 void	play(t_game *in)
@@ -61,7 +59,7 @@ void	play(t_game *in)
 			if (!(in->tile.data = (char**)malloc(sizeof(char*) * in->tile.y)))
 				exit (1);
 			save_data(&(in->tile), 0, in->fd);
-			place_token(in);
+			play_token(in);
 			ft_arrdel((void**)(in->board.data));
 			ft_arrdel((void**)(in->tile.data));
 		}
