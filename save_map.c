@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/19 15:38:43 by chermist          #+#    #+#             */
-/*   Updated: 2019/07/23 20:18:18 by chermist         ###   ########.fr       */
+/*   Updated: 2019/07/31 20:23:58 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int	main(void)
 	fd = open("rdmap", O_WRONLY);
 	while (-1 < (get_next_line(0, &line)))
 	{
-		write(fd, line, ft_strlen(line));
+		ft_putstr_fd(line, fd);
 		write(fd, "\n", 1);
-		ft_putnbr(y);
+/*		ft_putnbr(y);
 		ft_putchar(' ');
 		ft_putnbr(x);
-		ft_putchar('\n');
+		ft_putchar('\n');*/
 		ft_strdel(&line);
 	}
 	close(fd);

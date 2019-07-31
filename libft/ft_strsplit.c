@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/03 11:32:02 by chermist          #+#    #+#             */
-/*   Updated: 2019/04/24 15:47:06 by chermist         ###   ########.fr       */
+/*   Updated: 2019/07/31 19:39:27 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**ft_strsplit(char const *s, char c)
 		while (s[j] != c && s[j] != '\0')
 			j++;
 		if (!(str[k] = ft_strnew(j)))
-			return (ft_arrdel((void**)str));
+			return (ft_arrdel((void***)(&str)));
 		else if (!(j = 0))
 			while (*s != c && *s)
 				str[k][j++] = *s++;

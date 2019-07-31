@@ -6,19 +6,19 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 22:56:53 by chermist          #+#    #+#             */
-/*   Updated: 2019/05/04 23:32:07 by chermist         ###   ########.fr       */
+/*   Updated: 2019/07/31 19:36:56 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_arrdel(void **res)
+void	*ft_arrdel(void ***res)
 {
 	void	**tmp;
 
-	tmp = res;
-	while (res && *res)
-		free(*res++);
+	tmp = *res;
+	while (*res && **res)
+		free(**res++);
 	tmp = NULL;
 	return (tmp);
 }
