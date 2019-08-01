@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 15:22:05 by chermist          #+#    #+#             */
-/*   Updated: 2019/07/31 19:37:42 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/01 23:35:52 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 int					ft_isspace(int c);
 int					ft_wcount(char const *s, char c);
-void				*ft_arrdel(void ***res);
+void				*ft_arrdel(void **res);
 void				*ft_realloc(void *ptr, size_t prevsz, size_t newsz);
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void*, size_t));

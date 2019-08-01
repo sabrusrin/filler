@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 13:49:33 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/01 01:27:11 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/02 01:38:34 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,31 @@
 void	save_data(t_data *save, int flag, int fd, int fdm)
 {
 	char	*line;
+	char	*tmp;
 	int		i;
 	int		j;
+	int		k;
 
 	i = 0;
-	j = (!flag) ? save->y : save->y + 1;
-	save->data = (char**)malloc(sizeof(char *) * save->y);
-	while (j--)
+	k = (!flag) ? save->y : save->y + 1;
+	save->data = (char **)malloc(sizeof(char *) * (save->y + 1));
+	(save->data)[save->y] = NULL;
+	while (k--)
 	{
 		get_next_line(fdm, &line);
 		if (line && (line[0] != ' ' || flag == 0))
-			save->data[i] = line + flag;
-	ft_putchar_fd('{', fd);
-	ft_putstr_fd((save->data)[i], fd);
-	ft_putchar_fd('}', fd);
-	ft_putchar_fd('\n', fd);
-	i++;
+		{
+			save->data[i] = ft_strnew(sizeof(char) * save->x);
+			tmp = line + flag;
+			j = 0;
+			while (*tmp)
+				(save->data)[i][j++] = *(tmp++);
+			(save->data)[i][j] = 0;
+			i++;
+		}
+		if (line)
+			ft_strdel(&line);
 	}
-/*	j = 0;
-	if (flag)
-	{
-		get_next_line(0, &line);
-		ft_strdel(&line);
-	}
-	while (j < save->y)
-	{
-		get_next_line(0, &line);
-		save->data[i++] = line + flag;
-		j++;
-	}*/
 }
 
 void	dims(char **line, int *x, int *y, int flag)
@@ -69,19 +65,16 @@ void	locate_players(t_game *in)
 		x = -1;
 		while (++x < in->board.x)
 		{
-			ft_putchar_fd('U', in->fd);
-			ft_putstr_fd((in->board.data)[y], in->fd);
-			ft_putchar_fd('U', in->fd);
-			ft_putchar('\n');
-			if ((in->board.data)[y][x] == in->player[0])
+			if ((in->board.data)[y][x] == in->player[0] ||
+					(in->board.data)[y][x] == in->player[0] + 32)
 				(in->heat_map)[y][x] = -1;
-			else if ((in->board.data)[y][x] == in->player[1])
+			else if ((in->board.data)[y][x] == in->player[1] ||
+					(in->board.data)[y][x] == in->player[1] + 32)
 				(in->heat_map)[y][x] = 0;
 			else
-				(in->heat_map)[y][x] = 1;	
+				((in->heat_map)[y])[x] = 1;	
 		}
 	}
-
 	distance(in);
 }
 

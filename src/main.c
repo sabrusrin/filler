@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 13:49:30 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/01 01:27:14 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/02 01:38:35 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int		main(void)
 	else
 		return (1);
 	if (in.heat_map)
-		ft_arrdel((void***)&(in.heat_map));
+		ft_arrdel((void**)in.heat_map);
 	if (in.board.data)
-		ft_arrdel((void***)&(in.board.data));
+		ft_arrdel((void**)in.board.data);
 	if (in.tile.data)
-		ft_arrdel((void***)&(in.tile.data));
+		ft_arrdel((void**)in.tile.data);
 	return (0);
 }

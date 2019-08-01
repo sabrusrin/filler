@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 21:57:25 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/01 01:27:13 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/02 01:38:33 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	heat_map(t_game *in)
 		while (y < in->board.y)
 			if (!(in->heat_map[y++] = (int *)malloc(sizeof(int) * in->board.x)))
 				exit (1);
+		inited = 1;
 	}
 	locate_players(in);
 	ft_putchar_fd('V', in->fd);

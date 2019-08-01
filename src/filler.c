@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 20:16:34 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/01 01:27:10 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/02 01:38:32 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,31 @@ void	play_token(t_game *in)
 	height = 0;
 	write(in->fd, "Z\n", 2);
 //	fd = open("rdmap", O_WRONLY);
-	ft_putchar_fd('|', in->fd);
+/*	ft_putchar_fd('|', in->fd);
 	while (height <= in->board.y)
 	{
 		ft_putstr_fd((in->board.data)[height++], in->fd);
 		ft_putchar_fd('\n', in->fd);
 	}
-	ft_putchar_fd('|', in->fd);
+	ft_putchar_fd('|', in->fd);*/
 	ft_putchar_fd('&', in->fd);
 	write(in->fd, "\n", 1);
 	heat_map(in);
 	write(in->fd, "\n", 1);
 	ft_putchar_fd('&', in->fd);
-//	heat_map(in);
 //	place_it(in);
 	ft_putnbr(y);
 	ft_putchar(' ');
 	ft_putnbr(x);
 	ft_putchar('\n');
-//	close(fd);
 //	close(in->fd);
 }
 
 void	play(t_game *in)
 {
 	char	*line;
+	char	**tmp;
+	int		y;
 
 	while ((get_next_line(in->fdm,  &line)))
 	{
@@ -55,22 +55,43 @@ void	play(t_game *in)
 		if (ft_strstr(line, "Plateau"))
 		{
 		write(in->fd, "3\n", 2);
-		ft_putstr_fd(line, in->fd);
-		ft_putchar_fd('\n', in->fd);
 			if (in->board.x == 0 && in->board.y == 0)
 				dims(&line, &in->board.x, &in->board.y, 8);
+			if (in->board.data)
+			{
+				tmp = in->board.data;
+				y = 0;
+				while (y < in->board.y)
+				{
+					if (tmp[y])
+					free(tmp[y++]);
+				}
+			//	free(in->board.data);	
+			//	ft_arrdel((void**)in->board.data);
+			}
+			write(in->fd, "here\n", 5);
 			save_data(&(in->board), 4, in->fd, in->fdm);
 		}
 		if (ft_strstr(line, "Piece"))
 		{
 		write(in->fd, "4\n", 2);
 			dims(&line, &in->tile.x, &in->tile.y, 6);
+			if (in->tile.data)
+			{
+				tmp = in->tile.data;
+				y = 0;
+				while (y < in->tile.y)
+				{
+					if (tmp[y])
+					free(tmp[y++]);
+				}
+			}
+		//		ft_arrdel((void**)in->tile.data);
 			save_data(&(in->tile), 0, in->fd, in->fdm);
 			play_token(in);
-			ft_arrdel((void***)&(in->board.data));
-			ft_arrdel((void***)&(in->tile.data));
 		}
-		ft_strdel(&line);
+		if (line)
+			ft_strdel(&line);
 	}
 }
 
