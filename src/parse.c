@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 13:49:33 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/02 01:38:34 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/03 01:00:22 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,29 @@ void	save_data(t_data *save, int flag, int fd, int fdm)
 
 	i = 0;
 	k = (!flag) ? save->y : save->y + 1;
-	save->data = (char **)malloc(sizeof(char *) * (save->y + 1));
-	(save->data)[save->y] = NULL;
+	free_token(save, flag);
+	save->data = (char **)malloc(sizeof(char *) * save->y);
+/*	if (flag)
+	{
+		get_next_line(0, &line);
+		ft_strdel(&line);
+	}
+	k = 0;
+	while (k < save->y)
+	{
+		get_next_line(0, &line);
+		save->data[i] = ft_strnew(sizeof(char) * save->x);
+		tmp = line + flag;
+		j = 0;
+		while (*tmp)
+			(save->data)[i][j++] = *(tmp++);
+		i++;
+		k++;
+	}*/
 	while (k--)
 	{
-		get_next_line(fdm, &line);
-		if (line && (line[0] != ' ' || flag == 0))
+		get_next_line(0, &line);
+		if ((line[0] != ' ' || flag == 0))
 		{
 			save->data[i] = ft_strnew(sizeof(char) * save->x);
 			tmp = line + flag;
@@ -35,6 +52,9 @@ void	save_data(t_data *save, int flag, int fd, int fdm)
 			while (*tmp)
 				(save->data)[i][j++] = *(tmp++);
 			(save->data)[i][j] = 0;
+//			write(fd, "^\n", 2);
+//			ft_putstr_fd((save->data)[i], fd);
+//			write(fd, "\n^\n", 3);
 			i++;
 		}
 		if (line)

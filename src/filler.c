@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 20:16:34 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/02 01:38:32 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/03 00:59:27 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,6 @@ void	play_token(t_game *in)
 	write(in->fd, "Z\n", 2);
 //	fd = open("rdmap", O_WRONLY);
 /*	ft_putchar_fd('|', in->fd);
-	while (height <= in->board.y)
-	{
-		ft_putstr_fd((in->board.data)[height++], in->fd);
-		ft_putchar_fd('\n', in->fd);
-	}
 	ft_putchar_fd('|', in->fd);*/
 	ft_putchar_fd('&', in->fd);
 	write(in->fd, "\n", 1);
@@ -39,7 +34,17 @@ void	play_token(t_game *in)
 	ft_putchar(' ');
 	ft_putnbr(x);
 	ft_putchar('\n');
-//	close(in->fd);
+}
+
+void	free_token(t_data *token, int flag)
+{
+	int	y;
+
+	if (token->data && *(token->data))
+		while (y < token->y)
+			ft_strdel(&(token->data[y++]));
+	free((token->data));
+	token->data = NULL;
 }
 
 void	play(t_game *in)
@@ -48,7 +53,7 @@ void	play(t_game *in)
 	char	**tmp;
 	int		y;
 
-	while ((get_next_line(in->fdm,  &line)))
+	while (-1 < (get_next_line(0,  &line)))
 	{
 		if (!line)
 			continue ;
@@ -57,18 +62,6 @@ void	play(t_game *in)
 		write(in->fd, "3\n", 2);
 			if (in->board.x == 0 && in->board.y == 0)
 				dims(&line, &in->board.x, &in->board.y, 8);
-			if (in->board.data)
-			{
-				tmp = in->board.data;
-				y = 0;
-				while (y < in->board.y)
-				{
-					if (tmp[y])
-					free(tmp[y++]);
-				}
-			//	free(in->board.data);	
-			//	ft_arrdel((void**)in->board.data);
-			}
 			write(in->fd, "here\n", 5);
 			save_data(&(in->board), 4, in->fd, in->fdm);
 		}
@@ -76,22 +69,10 @@ void	play(t_game *in)
 		{
 		write(in->fd, "4\n", 2);
 			dims(&line, &in->tile.x, &in->tile.y, 6);
-			if (in->tile.data)
-			{
-				tmp = in->tile.data;
-				y = 0;
-				while (y < in->tile.y)
-				{
-					if (tmp[y])
-					free(tmp[y++]);
-				}
-			}
-		//		ft_arrdel((void**)in->tile.data);
 			save_data(&(in->tile), 0, in->fd, in->fdm);
 			play_token(in);
 		}
-		if (line)
-			ft_strdel(&line);
+		ft_strdel(&line);
 	}
 }
 
@@ -99,7 +80,7 @@ int		init_game(t_game *in)
 {
 	char *line;
 
-	get_next_line(in->fdm,  &line);
+	get_next_line(0,  &line);
 	if (line && (line[10] == '1' || line[10] == '2'))
 	{
 		in->player[0] = (ft_strstr(line, "p1")) ? 'O' : 'X';
