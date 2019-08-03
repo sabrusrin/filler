@@ -19,8 +19,6 @@ void	heat_map(t_game *in)
 	static int inited = 0;
 
 	y = 0;
-	ft_putchar_fd('T', in->fd);
-	ft_putchar_fd('\n', in->fd);
 	if (!inited)
 	{
 		if (!(in->heat_map = (int**)malloc(sizeof(int *) * in->board.y)))
@@ -31,7 +29,7 @@ void	heat_map(t_game *in)
 		inited = 1;
 	}
 	locate_players(in);
-	ft_putchar_fd('V', in->fd);
+/*	ft_putchar_fd('V', in->fd);
 	ft_putchar_fd('\n', in->fd);
 	ft_putchar_fd('|', in->fd);
 	y = 0;
@@ -40,7 +38,7 @@ void	heat_map(t_game *in)
 		ft_putstr_fd(in->board.data[y++], in->fd);
 		ft_putchar_fd('\n', in->fd);
 	}
-	ft_putchar_fd('|', in->fd);
+	ft_putchar_fd('|', in->fd);*/
 	y = -1;
 	while (++y < in->board.y)
 	{
@@ -52,4 +50,51 @@ void	heat_map(t_game *in)
 		}
 		ft_putchar_fd('\n', in->fd);
 	}
+}
+
+void	locate_players(t_game *in)
+{
+	int x;
+	int	y;
+
+	y = -1;
+	while (++y < in->board.y)
+	{
+		x = -1;
+		while (++x < in->board.x)
+		{
+			if ((in->board.data)[y][x] == in->player[0] ||
+					(in->board.data)[y][x] == in->player[0] + 32)
+				(in->heat_map)[y][x] = -1;
+			else if ((in->board.data)[y][x] == in->player[1] ||
+					(in->board.data)[y][x] == in->player[1] + 32)
+				(in->heat_map)[y][x] = 0;
+			else
+				((in->heat_map)[y])[x] = 1;	
+		}
+	}
+	distance(in);
+}
+
+void	distance(t_game *in)
+{
+	int	x;
+	int	y;
+	int	xe;
+	int	ye;
+	int	val;
+
+	y = -1;
+	while (++y < in->board.y && (x = -1))
+		while (++x < in->board.x)
+			if ((in->heat_map)[y][x] == 1 && !(val = 0))
+			{
+				ye = -1;
+				while (++ye < in->board.y && (xe = -1))
+					while (++xe < in->board.x)
+						if ((in->heat_map)[ye][xe] == 0)
+							val = (!val || val > sqrt(pow(ye - y, 2) + pow(xe - x, 2))) \
+								  ? sqrt(pow(ye - y, 2) + pow(xe - x, 2)) : val;
+				(in->heat_map)[y][x] = val;
+			}
 }

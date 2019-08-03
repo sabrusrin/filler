@@ -44,6 +44,7 @@ void			dims(char **line, int *x, int *y, int flag);
 void			play(t_game *in);
 int				init_game(t_game *in);
 void			locate_players(t_game *in);
+void			distance(t_game *in);
 void			free_token(t_data *token, int flag);
 void			heat_map(t_game *in);
 void			distance(t_game *in);

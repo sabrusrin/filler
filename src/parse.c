@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* ************************************************************************* */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
@@ -18,43 +18,18 @@ void	save_data(t_data *save, int flag, int fd, int fdm)
 	char	*tmp;
 	int		i;
 	int		j;
-	int		k;
 
 	i = 0;
-	k = (!flag) ? save->y : save->y + 1;
+	j = (!flag) ? save->y : save->y + 1;
 	free_token(save, flag);
 	save->data = (char **)malloc(sizeof(char *) * save->y);
-/*	if (flag)
+	while (j--)
 	{
 		get_next_line(0, &line);
-		ft_strdel(&line);
-	}
-	k = 0;
-	while (k < save->y)
-	{
-		get_next_line(0, &line);
-		save->data[i] = ft_strnew(sizeof(char) * save->x);
-		tmp = line + flag;
-		j = 0;
-		while (*tmp)
-			(save->data)[i][j++] = *(tmp++);
-		i++;
-		k++;
-	}*/
-	while (k--)
-	{
-		get_next_line(0, &line);
-		if ((line[0] != ' ' || flag == 0))
+		if (line && (line[0] != ' ' || flag == 0))
 		{
 			save->data[i] = ft_strnew(sizeof(char) * save->x);
-			tmp = line + flag;
-			j = 0;
-			while (*tmp)
-				(save->data)[i][j++] = *(tmp++);
-			(save->data)[i][j] = 0;
-//			write(fd, "^\n", 2);
-//			ft_putstr_fd((save->data)[i], fd);
-//			write(fd, "\n^\n", 3);
+			ft_strncpy(&((save->data)[i][0]), line + flag, save->x + 1);
 			i++;
 		}
 		if (line)
@@ -72,51 +47,4 @@ void	dims(char **line, int *x, int *y, int flag)
 	*line += 1;
 	*x = atoi_move((line));
 	*line = tmp;
-}
-
-void	locate_players(t_game *in)
-{
-	int x;
-	int	y;
-
-	y = -1;
-	while (++y < in->board.y)
-	{
-		x = -1;
-		while (++x < in->board.x)
-		{
-			if ((in->board.data)[y][x] == in->player[0] ||
-					(in->board.data)[y][x] == in->player[0] + 32)
-				(in->heat_map)[y][x] = -1;
-			else if ((in->board.data)[y][x] == in->player[1] ||
-					(in->board.data)[y][x] == in->player[1] + 32)
-				(in->heat_map)[y][x] = 0;
-			else
-				((in->heat_map)[y])[x] = 1;	
-		}
-	}
-	distance(in);
-}
-
-void	distance(t_game *in)
-{
-	int	x;
-	int	y;
-	int	xe;
-	int	ye;
-	int	val;
-
-	y = -1;
-	while (++y < in->board.y && (x = -1))
-		while (++x < in->board.x)
-			if ((in->heat_map)[y][x] == 1 && !(val = 0))
-			{
-				ye = -1;
-				while (++ye < in->board.y && (xe = -1))
-					while (++xe < in->board.x)
-						if ((in->heat_map)[ye][xe] == 0)
-							val = (!val || val > sqrt(pow(ye - y, 2) + pow(xe - x, 2))) \
-								  ? sqrt(pow(ye - y, 2) + pow(xe - x, 2)) : val;
-				(in->heat_map)[y][x] = val;
-			}
 }

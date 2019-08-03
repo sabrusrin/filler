@@ -16,19 +16,8 @@ void	play_token(t_game *in)
 {
 	int		fd;
 	int		y = 12, x = 14;
-	int		height;
-	static int i = 0;
 
-	height = 0;
-	write(in->fd, "Z\n", 2);
-//	fd = open("rdmap", O_WRONLY);
-/*	ft_putchar_fd('|', in->fd);
-	ft_putchar_fd('|', in->fd);*/
-	ft_putchar_fd('&', in->fd);
-	write(in->fd, "\n", 1);
 	heat_map(in);
-	write(in->fd, "\n", 1);
-	ft_putchar_fd('&', in->fd);
 //	place_it(in);
 	ft_putnbr(y);
 	ft_putchar(' ');
@@ -41,10 +30,12 @@ void	free_token(t_data *token, int flag)
 	int	y;
 
 	if (token->data && *(token->data))
+	{
 		while (y < token->y)
 			ft_strdel(&(token->data[y++]));
-	free((token->data));
-	token->data = NULL;
+		free((token->data));
+		token->data = NULL;
+	}
 }
 
 void	play(t_game *in)
@@ -53,21 +44,20 @@ void	play(t_game *in)
 	char	**tmp;
 	int		y;
 
+	line = NULL;
 	while (-1 < (get_next_line(0,  &line)))
 	{
-		if (!line)
-			continue ;
+		write(in->fd, "here\n", 5);
+//		if (!line)
+//			continue ;
 		if (ft_strstr(line, "Plateau"))
 		{
-		write(in->fd, "3\n", 2);
 			if (in->board.x == 0 && in->board.y == 0)
 				dims(&line, &in->board.x, &in->board.y, 8);
-			write(in->fd, "here\n", 5);
 			save_data(&(in->board), 4, in->fd, in->fdm);
 		}
 		if (ft_strstr(line, "Piece"))
 		{
-		write(in->fd, "4\n", 2);
 			dims(&line, &in->tile.x, &in->tile.y, 6);
 			save_data(&(in->tile), 0, in->fd, in->fdm);
 			play_token(in);
