@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 22:06:55 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/03 01:00:27 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/06 00:39:12 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ typedef struct	s_game
 	t_data		tile;
 }				t_game;
 
-void			save_data(t_data*save, int flag, int fd, int fdm);
+void			save_data(t_data*save, int flag, int fd);
 void			dims(char **line, int *x, int *y, int flag);
 void			play(t_game *in);
 int				init_game(t_game *in);
 void			locate_players(t_game *in);
 void			distance(t_game *in);
-void			free_token(t_data *token, int flag);
+void			free_token(t_data *token);
 void			heat_map(t_game *in);
 void			distance(t_game *in);
 unsigned long	atoi_move_hex(char **str);

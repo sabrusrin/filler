@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 20:16:34 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/04 00:51:58 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/06 00:39:08 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	play_token(t_game *in)
 {
-	int		fd;
 	int		y = 12, x = 14;
 
 	heat_map(in);
@@ -25,13 +24,14 @@ void	play_token(t_game *in)
 	ft_putchar('\n');
 }
 
-void	free_token(t_data *token, int flag)
+void	free_token(t_data *token)
 {
 	int	y;
 
+	y = 0;
 	if (token->data && *(token->data))
 	{
-		while (y < token->y)
+		while (y < token->y && (token->data[y]))
 			ft_strdel(&(token->data[y++]));
 		free((token->data));
 		token->data = NULL;
@@ -41,25 +41,20 @@ void	free_token(t_data *token, int flag)
 void	play(t_game *in)
 {
 	char	*line;
-	char	**tmp;
-	int		y;
 
 	line = NULL;
-	while (-1 < (get_next_line(0,  &line)))
+	while (get_next_line(0, &line))
 	{
-		write(in->fd, "here\n", 5);
-//		if (!line)
-//			continue ;
 		if (ft_strstr(line, "Plateau"))
 		{
 			if (in->board.x == 0 && in->board.y == 0)
 				dims(&line, &in->board.x, &in->board.y, 8);
-			save_data(&(in->board), 4, in->fd, in->fdm);
+			save_data(&(in->board), 4, in->fd);
 		}
 		if (ft_strstr(line, "Piece"))
 		{
 			dims(&line, &in->tile.x, &in->tile.y, 6);
-			save_data(&(in->tile), 0, in->fd, in->fdm);
+			save_data(&(in->tile), 0, in->fd);
 			play_token(in);
 		}
 		ft_strdel(&line);
@@ -70,7 +65,7 @@ int		init_game(t_game *in)
 {
 	char *line;
 
-	get_next_line(0,  &line);
+	get_next_line(0, &line);
 	if (line && (line[10] == '1' || line[10] == '2'))
 	{
 		in->player[0] = (ft_strstr(line, "p1")) ? 'O' : 'X';

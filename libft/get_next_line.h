@@ -6,7 +6,7 @@
 /*   By: chermist <chermist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 20:25:09 by chermist          #+#    #+#             */
-/*   Updated: 2019/04/24 15:47:06 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/05 18:15:44 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define BUFF_SIZE 1024
+# define BUFF_SIZE 1
 
 typedef struct		s_line
 {

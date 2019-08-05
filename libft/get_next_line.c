@@ -6,7 +6,7 @@
 /*   By: chermist <chermist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/17 16:29:09 by chermist          #+#    #+#             */
-/*   Updated: 2019/04/13 01:52:56 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/06 00:39:15 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,27 @@ t_line	*check_fd(t_line *curr_l, int fd)
 	return (curr_l);
 }
 
-char	*join_n_free(char *s1, char const *s2, int cen, int nb)
+char	*join_n_free(char **s1, char const *s2, int cen, int nb)
 {
 	char	*tmp;
 
-	if (!s1 || !s2)
+	if (!s1 || !(*s1) || !s2)
 		return (NULL);
 	if (cen > 0)
 	{
-		if (!(s1 = ft_realloc(s1, cen, cen + nb)))
+		if (!(*s1 = ft_realloc(*s1, cen, cen + nb)))
 			return (NULL);
 	}
 	else
 	{
-		free(s1);
-		if (!(s1 = malloc(nb)))
+		free(*s1);
+		if (!(*s1 = malloc(nb)))
 			return (NULL);
 	}
-	tmp = s1;
-	s1 += cen;
+	tmp = *s1;
+	*s1 += cen;
 	while (nb--)
-		*s1++ = *s2++;
+		*(*s1++) = *s2++;
 	return (tmp);
 }
 
@@ -124,7 +124,7 @@ int		get_next_line(const int fd, char **line)
 		return (-1);
 	while ((rb = read(fd, buffer, BUFF_SIZE)))
 	{
-		if (!(curr_l->con = join_n_free(curr_l->con, buffer, curr_l->c_sz, rb)))
+		if (!(curr_l->con = join_n_free((char**)&curr_l->con, buffer, curr_l->c_sz, rb)))
 			return (-1);
 		if ((curr_l->c_sz += rb) && (ft_strchr(buffer, '\n')))
 			break ;

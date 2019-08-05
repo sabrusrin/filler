@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 13:49:30 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/03 00:59:31 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/06 00:39:14 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int		main(void)
 {
-	int		i;
-	int 	j;
-	char	*line;
 	t_game 	in;
 
 	in.fd = open("trace", O_WRONLY);
@@ -28,8 +25,8 @@ int		main(void)
 //	if (in.heat_map)
 //		ft_arrdel((void**)in.heat_map);
 	if (in.board.data)
-		free_token(&(in.board), 4);
+		free_token(&(in.board));
 	if (in.tile.data)
-		free_token(&(in.tile), 0);
+		free_token(&(in.tile));
 	return (0);
 }
