@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/22 13:49:30 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/07 01:16:08 by chermist         ###   ########.fr       */
+/*   Created: 2018/12/02 20:40:05 by chermist          #+#    #+#             */
+/*   Updated: 2019/05/27 20:24:26 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int		main(void)
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	t_game in;
+	char	*subs;
 
-	in.fd = open("trace", O_WRONLY);
-	in.fdm = open("rdmap", O_RDONLY);
-	if (init_game(&in))
-		play(&in);
-	else
-		return (1);
-	if (in.board.data)
-		free_token(&(in.board));
-	if (in.tile.data)
-		free_token(&(in.tile));
-	return (0);
+	if (!s || !(subs = ft_strnew(len)) || (start > ft_strlen(s)))
+		return (NULL);
+	while (start--)
+		s++;
+	ft_strncpy(subs, s, len);
+	return (subs);
 }

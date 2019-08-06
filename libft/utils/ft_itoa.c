@@ -1,30 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/22 13:49:30 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/07 01:16:08 by chermist         ###   ########.fr       */
+/*   Created: 2018/12/03 12:53:12 by chermist          #+#    #+#             */
+/*   Updated: 2018/12/03 20:53:59 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int		main(void)
+char	*ft_itoa(int n)
 {
-	t_game in;
+	int		len;
+	int		tmp;
+	char	*str;
 
-	in.fd = open("trace", O_WRONLY);
-	in.fdm = open("rdmap", O_RDONLY);
-	if (init_game(&in))
-		play(&in);
-	else
-		return (1);
-	if (in.board.data)
-		free_token(&(in.board));
-	if (in.tile.data)
-		free_token(&(in.tile));
-	return (0);
+	len = 1;
+	tmp = n;
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	while (tmp /= 10)
+		len++;
+	if (n < 0)
+	{
+		len += ++tmp;
+		n *= -1;
+	}
+	if (!(str = ft_strnew(len)))
+		return (NULL);
+	while (len--)
+	{
+		str[len] = (n % 10) + '0';
+		n /= 10;
+	}
+	if (tmp)
+		str[0] = '-';
+	return (str);
 }

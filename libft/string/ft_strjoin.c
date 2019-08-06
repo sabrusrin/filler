@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/22 13:49:30 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/07 01:16:08 by chermist         ###   ########.fr       */
+/*   Created: 2018/12/02 21:10:55 by chermist          #+#    #+#             */
+/*   Updated: 2018/12/02 22:58:14 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int		main(void)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	t_game in;
+	char	*catstr;
 
-	in.fd = open("trace", O_WRONLY);
-	in.fdm = open("rdmap", O_RDONLY);
-	if (init_game(&in))
-		play(&in);
-	else
-		return (1);
-	if (in.board.data)
-		free_token(&(in.board));
-	if (in.tile.data)
-		free_token(&(in.tile));
-	return (0);
+	if (!s1 || !s2 || !(catstr = ft_strnew(ft_strlen(s1) + ft_strlen(s2))))
+		return (NULL);
+	return (ft_strcat(ft_strcat(catstr, s1), s2));
 }

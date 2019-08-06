@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/22 13:49:30 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/07 01:16:08 by chermist         ###   ########.fr       */
+/*   Created: 2018/12/01 12:29:54 by chermist          #+#    #+#             */
+/*   Updated: 2018/12/04 22:58:08 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int		main(void)
+char	*ft_strnew(size_t size)
 {
-	t_game in;
+	char	*str;
+	size_t	size_max;
 
-	in.fd = open("trace", O_WRONLY);
-	in.fdm = open("rdmap", O_RDONLY);
-	if (init_game(&in))
-		play(&in);
-	else
-		return (1);
-	if (in.board.data)
-		free_token(&(in.board));
-	if (in.tile.data)
-		free_token(&(in.tile));
-	return (0);
+	size_max = -1;
+	if ((size_max == size) || !(str = malloc(size + 1)))
+		return (NULL);
+	ft_memset(str, 0, size + 1);
+	return (str);
 }

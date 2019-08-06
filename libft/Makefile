@@ -6,7 +6,7 @@
 #    By: chermist <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/27 22:25:22 by chermist          #+#    #+#              #
-#    Updated: 2019/05/26 22:13:38 by chermist         ###   ########.fr        #
+#    Updated: 2019/08/06 19:22:22 by chermist         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ PUT_F = ft_putchar.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c
 
-LST_F = ft_lstnew.c \
+LST_F =	ft_lstnew.c \
 		ft_lstdelone.c \
 		ft_lstdel.c \
 		ft_lstadd.c \
@@ -80,14 +80,27 @@ LST_F = ft_lstnew.c \
 		ft_lstiter.c \
 		ft_lstappend.c
 
+MATH_F = ft_pow.c \
+		 ft_sqrt.c \
+		 ft_fabs.c
+
+
 MY_F  = get_next_line.c
 
-SRCS =	$(MEM_F) $(STR_F) $(CHR_F) $(PUT_F) $(LST_F) $(MY_F)
+SRCS =	$(MEM_F) $(STR_F) $(CHR_F) $(PUT_F) $(LST_F) $(MY_F) $(MATH_F)
 
-HEADER = libft.h \
-		 get_next_line.h
+INC = -I./includes
 
 OBJ = $(SRCS:%.c=%.o)
+
+vpath %.c memory
+vpath %.c string
+vpath %.c char
+vpath %.c print
+vpath %.c utils
+vpath %.c lst
+vpath %.c myfunc
+vpath %.c math
 
 FLAGS = -Wall -Wextra -Werror -c
 
@@ -97,8 +110,8 @@ $(NAME): $(OBJ)
 		ar rc $(NAME) $(OBJ)
 		ranlib $(NAME)
 
-%.o: %.c $(HEADER)
-	gcc $(FLAGS) -c $< -o $@
+%.o: %.c
+	gcc $(FLAGS) $(INC) -c $< -o $@
 
 
 clean:

@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/22 13:49:30 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/07 01:16:08 by chermist         ###   ########.fr       */
+/*   Created: 2018/12/04 21:29:42 by chermist          #+#    #+#             */
+/*   Updated: 2018/12/04 22:26:15 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int		main(void)
+int	ft_isspace(int c)
 {
-	t_game in;
-
-	in.fd = open("trace", O_WRONLY);
-	in.fdm = open("rdmap", O_RDONLY);
-	if (init_game(&in))
-		play(&in);
-	else
-		return (1);
-	if (in.board.data)
-		free_token(&(in.board));
-	if (in.tile.data)
-		free_token(&(in.tile));
-	return (0);
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\12' ||
+		c == '\v' || c == '\f' || c == '\r');
 }

@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   place_it.c                                         :+:      :+:    :+:   */
+/*   ft_lstadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/04 00:38:01 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/04 00:51:56 by chermist         ###   ########.fr       */
+/*   Created: 2018/12/06 18:34:56 by chermist          #+#    #+#             */
+/*   Updated: 2018/12/06 18:47:06 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-void	place_it(t_game *in)
+void	ft_lstadd(t_list **alst, t_list *new)
 {
-	 is_placeble(in);
-
+	if (*alst)
+		new->next = *alst;
+	*alst = new;
 }

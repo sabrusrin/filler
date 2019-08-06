@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 22:06:55 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/06 00:39:12 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/07 01:11:09 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct	s_game
 	t_data		tile;
 }				t_game;
 
-void			save_data(t_data*save, int flag, int fd);
+void			save_data(t_data*save, int flag);
 void			dims(char **line, int *x, int *y, int flag);
 void			play(t_game *in);
 int				init_game(t_game *in);

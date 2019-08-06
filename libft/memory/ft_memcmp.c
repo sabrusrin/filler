@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/22 13:49:30 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/07 01:16:08 by chermist         ###   ########.fr       */
+/*   Created: 2018/11/23 15:25:17 by chermist          #+#    #+#             */
+/*   Updated: 2018/11/30 12:37:00 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int		main(void)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	t_game in;
+	unsigned char ps1;
+	unsigned char ps2;
 
-	in.fd = open("trace", O_WRONLY);
-	in.fdm = open("rdmap", O_RDONLY);
-	if (init_game(&in))
-		play(&in);
-	else
-		return (1);
-	if (in.board.data)
-		free_token(&(in.board));
-	if (in.tile.data)
-		free_token(&(in.tile));
+	while (n--)
+	{
+		ps1 = *(unsigned char*)s1;
+		ps2 = *(unsigned char*)s2;
+		if (ps1 != ps2)
+			return (ps1 - ps2);
+		s1++;
+		s2++;
+	}
 	return (0);
 }

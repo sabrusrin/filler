@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 20:16:34 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/06 00:39:08 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/07 01:22:23 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 void	play_token(t_game *in)
 {
-	int		y = 12, x = 14;
+	int		y;
+	int		x;
 
+	y = 12;
+	x = 14;
 	heat_map(in);
 //	place_it(in);
 	ft_putnbr(y);
@@ -31,7 +34,7 @@ void	free_token(t_data *token)
 	y = 0;
 	if (token->data && *(token->data))
 	{
-		while (y < token->y && (token->data[y]))
+		while (token->data[y])
 			ft_strdel(&(token->data[y++]));
 		free((token->data));
 		token->data = NULL;
@@ -49,12 +52,12 @@ void	play(t_game *in)
 		{
 			if (in->board.x == 0 && in->board.y == 0)
 				dims(&line, &in->board.x, &in->board.y, 8);
-			save_data(&(in->board), 4, in->fd);
+			save_data(&(in->board), 4);
 		}
 		if (ft_strstr(line, "Piece"))
 		{
 			dims(&line, &in->tile.x, &in->tile.y, 6);
-			save_data(&(in->tile), 0, in->fd);
+			save_data(&(in->tile), 0);
 			play_token(in);
 		}
 		ft_strdel(&line);

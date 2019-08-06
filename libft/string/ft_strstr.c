@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/22 13:49:30 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/07 01:16:08 by chermist         ###   ########.fr       */
+/*   Created: 2018/11/23 15:28:56 by chermist          #+#    #+#             */
+/*   Updated: 2019/05/27 20:41:39 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "libft.h"
 
-int		main(void)
+char	*ft_strstr(const char *haystack, const char *needle)
 {
-	t_game in;
+	size_t	hi;
+	size_t	ni;
+	size_t	len;
 
-	in.fd = open("trace", O_WRONLY);
-	in.fdm = open("rdmap", O_RDONLY);
-	if (init_game(&in))
-		play(&in);
-	else
-		return (1);
-	if (in.board.data)
-		free_token(&(in.board));
-	if (in.tile.data)
-		free_token(&(in.tile));
-	return (0);
+	hi = 0;
+	ni = 0;
+	len = ft_strlen(needle);
+	if (!len)
+		return ((char*)haystack);
+	while (haystack[hi])
+	{
+		ni = 0;
+		while (needle[ni] == haystack[ni + hi])
+		{
+			if (ni++ == len - 1)
+				return ((char*)haystack + hi);
+		}
+		hi++;
+	}
+	return (NULL);
 }
