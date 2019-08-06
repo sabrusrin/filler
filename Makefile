@@ -6,7 +6,7 @@
 #    By: chermist <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:07:03 by chermist          #+#    #+#              #
-#    Updated: 2019/08/07 01:14:36 by chermist         ###   ########.fr        #
+#    Updated: 2019/08/07 01:32:30 by chermist         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = resources/players/kek.filler
 
 CC = gcc
 
-INCDIR = -I libft -I inc
+INCDIR = -I libft/includes -I inc
 
 LIBDIR = -L libft
 
