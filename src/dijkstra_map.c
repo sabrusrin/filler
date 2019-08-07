@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 21:57:25 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/07 01:21:02 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/07 23:48:21 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,10 @@ void	distance(t_game *in)
 				while (++ye < in->board.y && (xe = -1))
 					while (++xe < in->board.x)
 						if ((in->heat_map)[ye][xe] == 0)
-							val = (!val || val > sqrt(pow(ye - y, 2) + pow(xe - x, 2))) \
-							? sqrt(pow(ye - y, 2) + pow(xe - x, 2)) : val;
+							val = (!val || val > ft_sqrt((ye - y) * (ye - y)
+										+ (xe - x) * (xe - x)))
+							? ft_sqrt((ye - y) * (ye - y)
+									+ (xe - x) * (xe - x)) : val;
 				(in->heat_map)[y][x] = val;
 			}
 }

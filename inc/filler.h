@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 22:06:55 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/07 01:11:09 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/08 00:07:04 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@
 
 # include "libft.h"
 # include "get_next_line.h"
+
+typedef struct	s_player
+{
+	int			y;
+	int			x;
+	int			**fig;
+	int			**enemy;
+	int			**me;
+}
 
 typedef struct	s_data
 {
