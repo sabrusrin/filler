@@ -1,40 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sqrt.c                                          :+:      :+:    :+:   */
+/*   ft_vresize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/06 18:41:31 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/09 17:32:11 by chermist         ###   ########.fr       */
+/*   Created: 2019/08/09 17:21:12 by chermist          #+#    #+#             */
+/*   Updated: 2019/08/09 17:30:48 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<libft.h>
+#include "vector.h"
 
-int	ft_sqrt(int x)
+void	ft_vresize(t_vector *v, size_t size)
 {
-	int		start;
-	int		end;
-	int		ans;
-	int		mid;
-
-	start = 1;
-	end	= x;
-	if (x == 0 || x == 1)
-		return (x);
-	while (start <= end)
-	{
-		mid = (start + end) / 2;
-		if (mid*mid == x)
-			return (mid);
-		if (mid * mid < x)
-		{
-			start = mid + 1;
-			ans = mid;
-		}
-		else
-			end = mid - 1;
-	}
-	return ans;
+	if (v && size)	
+		v->data = ft_realloc(&(v->data), v->size, size);
 }

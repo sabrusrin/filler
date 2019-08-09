@@ -1,40 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sqrt.c                                          :+:      :+:    :+:   */
+/*   ft_vnew.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/06 18:41:31 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/09 17:32:11 by chermist         ###   ########.fr       */
+/*   Created: 2019/08/08 19:51:46 by chermist          #+#    #+#             */
+/*   Updated: 2019/08/09 17:25:02 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<libft.h>
+#include	"vector.h"
 
-int	ft_sqrt(int x)
+t_vector	*ft_vnew(size_t size, size_t type_sz)
 {
-	int		start;
-	int		end;
-	int		ans;
-	int		mid;
+	t_vector	*v;
 
-	start = 1;
-	end	= x;
-	if (x == 0 || x == 1)
-		return (x);
-	while (start <= end)
+	v = NULL;
+	if (size && type_sz && (v = (t_vector *)malloc(sizeof(t_vector))))
 	{
-		mid = (start + end) / 2;
-		if (mid*mid == x)
-			return (mid);
-		if (mid * mid < x)
-		{
-			start = mid + 1;
-			ans = mid;
-		}
-		else
-			end = mid - 1;
+		v->type_sz = type_sz;
+		v->size = size;
+		if (!(v->data = malloc(size)))
+			ft_memdel((void**)&v);
 	}
-	return ans;
+	return (v);
 }
