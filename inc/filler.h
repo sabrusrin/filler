@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 22:06:55 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/10 01:17:32 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/11 00:29:55 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@
 
 typedef struct	s_player
 {
-	int			y;
-	int			x;
-	int			**fig;
-	int			**lee_map;
-	int			**enemy;
-	int			**me;
+	int			r_y;
+	int			r_x;
+	int			p_y;
+	int			p_x;
+	int			**cost_map;
 }				t_player;
 
 typedef struct	s_data
@@ -56,7 +55,6 @@ void			play(t_game *in);
 int				init_game(t_game *in);
 void			free_token(t_data *token);
 void			heat_map(t_game *in);
-unsigned long	atoi_move_hex(char **str);
 int				atoi_move(char **str);
 
 #endif
