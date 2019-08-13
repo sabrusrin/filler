@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 22:06:55 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/11 17:25:31 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/14 00:24:48 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 
 typedef struct	s_player
 {
-	int			r_y;
+	int			r_y;//coordinates to place token
 	int			r_x;
-	int			p_y;
+	int			p_y;//coordinates to compare
 	int			p_x;
 	int			y;
 	int			x;

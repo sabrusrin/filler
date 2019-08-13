@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 00:38:01 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/11 17:25:29 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/14 00:24:47 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		check_map(t_game *in)
 	while (++y < in->board.y)
 		while (++x < in->board.x)
 		{
-			if (in->heat_map[y][x][2] <= 7)
+			if (in->heat_map[y][x][2] <= 10)
 				return (2);
 			else
 				return (1);
@@ -31,10 +31,32 @@ int		check_map(t_game *in)
 	return (0);
 }
 
-void	is_placeable(t_game *in)
+void	is_placeable(t_game *in, int y, int x)
 {
 	// 1 * should overlap
-	// 
+	// it should cover least possible fcost on the map 
+	// try to fit  your figure around the coordinates passed
+	int	ty;
+	int	tx;
+	int	offy;
+	int	offx;
+	int	cost;
+	int	costp;
+
+	offy = (y > 0 && in->heat_map[y - 1][x][0] > in->heat_map[y][x][0]) ? 1 : -1;
+	offx = (x > 0 && in->heat_map[y][x - 1][0] > in->heat_map[y][x][0]) ? 1 : -1;
+	ty = -1;
+	cost = 0;
+	costp = 0;
+	while (ty < in->tile.y && (tx = -1))
+		while (tx < in->tile.x)
+		{
+			[y + ty * offy][x + tx * offx] // here I have to check wether the token fits in place and overlaps one and only
+			   //	cell of my territory and count cost covered by my figure
+			if (!cost || cost > costp)
+				cost = costp;
+		}
+
 }
 
 void	size_fig(t_game *in)
@@ -71,7 +93,7 @@ void	approach(t_game *in)
 		while (++x < in->board.x)
 			if ((in->heat_map[y][x][2] > 0) && // check for figure
 				(in->heat_map[y][x][1] == 3 ||
-			   	in->heat_map[y][x][1] == 4) && // check how close i'm to player
+			   	in->heat_map[y][x][1] == 4) && // check how close i'm to the player
 				(!fcost || fcost >= in->heat_map[y][x][2])) // check if i should consider this cell
 				if ((fcost > in->heat_map[y][x][2]) ||
 					((fcost == in->heat_map[y][x][2]) &&
