@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 00:38:01 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/14 00:24:47 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/14 20:58:25 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,59 @@ int		check_map(t_game *in)
 	return (0);
 }
 
-void	is_placeable(t_game *in, int y, int x)
+int	j	is_placeable(t_game *in, int y, int x)
 {
 	// 1 * should overlap
 	// it should cover least possible fcost on the map 
 	// try to fit  your figure around the coordinates passed
+	int	i;
+	int	j;
 	int	ty;
 	int	tx;
 	int	offy;
 	int	offx;
 	int	cost;
 	int	costp;
+	int	star;
 
 	offy = (y > 0 && in->heat_map[y - 1][x][0] > in->heat_map[y][x][0]) ? 1 : -1;
 	offx = (x > 0 && in->heat_map[y][x - 1][0] > in->heat_map[y][x][0]) ? 1 : -1;
 	ty = -1;
 	cost = 0;
 	costp = 0;
-	while (ty < in->tile.y && (tx = -1))
-		while (tx < in->tile.x)
+	while ((offy * ty + y) < (offy * in->tile.y + y) && (tx = -1)) //ty < in->tile.y && (tx = -1))
+		while ((offy * ty + y) < (offy * in->tile.y + y)) //tx < in->tile.x)
 		{
-			[y + ty * offy][x + tx * offx] // here I have to check wether the token fits in place and overlaps one and only
+			if ((y + ty * offy) < in->board.y && (y + ty * offy) > 0 &&
+				(x + tx * offx) < in->board.x && (x + tx * offx) > 0)
+			{
+				star = 0;
+				i = -1; 
+				while (i < in->tile.y && (j = -1) && star <= 1)
+					while (j < in->tile.x && star <= 1)
+					{
+						if (in->heat_map[(y + ty * offy) + i][(x + tx * offx) + j][0] > 0 &&
+							(in->tile.data[i][j] == '*'))
+							costp += in->heat_map[(y + ty * offy) + i][(x + tx * offx) + j][2];
+						else if (in->heat_map[(y + ty * offy) + i][(x + tx * offx) + j][0] == -1 &&
+								(in->tile.data[i][j] == '*'))
+							star++;
+						else if (in->heat_map[(y + ty * offy) + i][(x + tx * offx) + j][0] == -1 &&
+								(in->tile.data[i][j] == '*'))
+							break ;
+					}
+				if (star == 1 && (!cost || cost > costp))
+		 		{
+					in->p.r_y = y + ty * offy;
+					in->p.r_x = x + tx * offx;
+					cost = costp;
+				}
+			}//save the optimal coordinates
+//			[y + ty * offy][x + tx * offx] // here I have to check wether the token fits in place and overlaps one and only
+				
 			   //	cell of my territory and count cost covered by my figure
-			if (!cost || cost > costp)
-				cost = costp;
+//			if (star == 1 && (!cost || cost > costp))
+//				cost = costp;
 		}
 
 }
