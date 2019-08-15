@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 20:16:34 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/11 17:25:30 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/16 02:00:45 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ void	play_token(t_game *in)
 	y = 12;
 	x = 14;
 	heat_map(in);
+	player(in);
 //	place_it(in);
-	ft_putnbr(y);
-	ft_putchar(' ');
-	ft_putnbr(x);
-	ft_putchar('\n');
+//	ft_putnbr(y);
+//	ft_putchar(' ');
+//	ft_putnbr(x);
+//	ft_putchar('\n');
 }
 
 void	free_token(t_data *token)

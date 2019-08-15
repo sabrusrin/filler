@@ -6,11 +6,11 @@
 #    By: chermist <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:07:03 by chermist          #+#    #+#              #
-#    Updated: 2019/08/07 17:13:10 by chermist         ###   ########.fr        #
+#    Updated: 2019/08/15 18:19:19 by chermist         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = resources/players/kek.filler
+NAME = resources/players/rust.filler
 
 CC = gcc
 
@@ -29,6 +29,7 @@ SRC =	main.c			\
 		parse.c			\
 		dijkstra_map.c	\
 		support.c		\
+		player.c
 #		read_line.c		\
 
 OBJ = $(SRC:.c=.o)
