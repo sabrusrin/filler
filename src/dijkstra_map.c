@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 21:57:25 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/16 01:40:30 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/17 01:13:01 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	locate_players(t_game *in)
 }
 
 void	distance(t_game *in, int x, int y, int flag)
-{
+{//THIS FRICKING FUNCTION TAKES TOO MUCH TIME
 	int	xe;
 	int	ye;
 	int	val;
@@ -51,9 +51,9 @@ void	distance(t_game *in, int x, int y, int flag)
 	while (++ye < in->board.y && (xe = -1))
 		while (++xe < in->board.x)
 			if (in->heat_map[ye][xe][flag] == -flag)// multiplied here by 10
-				val = (!val || val > ft_sqrt(10 * ((ye - y) * (ye - y)
+				val = (!val || val > ft_sqrt(((ye - y) * (ye - y)
 					+ (xe - x) * (xe - x))))
-				? ft_sqrt(10 * ((ye - y) * (ye - y)
+				? ft_sqrt(((ye - y) * (ye - y)
 					+ (xe - x) * (xe - x))) : val;
 	in->heat_map[y][x][flag] = val;
 }
@@ -105,8 +105,8 @@ void	heat_map(t_game *in)
 	}
 	locate_players(in);
 	fill_cell(in);
-//	ft_putstr_fd("|0|\n", in->fd);
-/*	y = -1;
+/*	ft_putstr_fd("|0|\n", in->fd);
+	y = -1;
 	while (++y < in->board.y)
 	{
 		x = -1;
@@ -118,7 +118,7 @@ void	heat_map(t_game *in)
 		ft_putchar_fd('\n', in->fd);
 	}
 	ft_putstr_fd("|0|\n", in->fd);
-	ft_putstr_fd("|1|\n", in->fd);*/
+	ft_putstr_fd("|1|\n", in->fd);
 	y = -1;
 	while (++y < in->board.y)
 	{
@@ -144,5 +144,5 @@ void	heat_map(t_game *in)
 		ft_putchar_fd('\n', in->fd);
 	}
 	ft_putstr_fd("|2|\n", in->fd);
-
+*/
 }

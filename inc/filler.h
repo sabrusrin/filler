@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 22:06:55 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/16 02:00:46 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/17 01:13:03 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@
 
 typedef struct	s_player
 {
-	int			r_y;// token size
+	int			r_y;// fig size
 	int			r_x;
 	int			p_y;//coordinates to compare
 	int			p_x;
 	int			y;// to place
 	int			x;
+	int			k;
 	int			cost;
 }				t_player;
 

@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 00:38:01 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/16 02:00:43 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/17 01:12:30 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		check_map(t_game *in)
 	while (++y < in->board.y && (x = -1))
 		while (++x < in->board.x)
 		{
-			if (in->heat_map[y][x][2] != 0 && in->heat_map[y][x][2] <= 10)
+			if (in->heat_map[y][x][2] != 0 && in->heat_map[y][x][2] < 5)//10
 				return (2);
 		//	else
 		//		return (1);
@@ -50,32 +50,32 @@ int		is_placeable(t_game *in, int y, int x, int *cost)
 	ty = -1;
 	costp = 0;
 	star = 0;
-	ft_putstr_fd("func", in->fd);
+/*	ft_putstr_fd("func", in->fd);
 	ft_putstr_fd("|", in->fd);
 	ft_putnbr_fd(y, in->fd);
 	ft_putstr_fd("|", in->fd);
 	ft_putnbr_fd(x, in->fd);
 	ft_putstr_fd("|", in->fd);
-/*	ft_putnbr_fd(offy, in->fd);
+*//*	ft_putnbr_fd(offy, in->fd);
 	ft_putstr_fd("|", in->fd);
 	ft_putnbr_fd(offx, in->fd);
 	ft_putstr_fd("|", in->fd);*/
-	ft_putchar_fd('\n', in->fd);
+//	ft_putchar_fd('\n', in->fd);
 
 	while (++ty < in->tile.y && (tx = -1))//move token up-down left-right
 		while (++tx <= in->tile.x)
 		{
-			if ((in->tile.y + y + ty * offy) < in->board.y && (y + ty * offy) > 0 &&
-				(in->tile.x + x + tx * offx) < in->board.x && (x + tx * offx) > 0)
+			if ((in->tile.y + y + ty * offy) <= in->board.y && (y + ty * offy) >= 0 &&
+				(in->tile.x + x + tx * offx) <= in->board.x && (x + tx * offx) >= 0)
 			{
-			ft_putstr_fd("valid", in->fd);
+/*			ft_putstr_fd("valid", in->fd);
 			ft_putstr_fd("|", in->fd);
 			ft_putnbr_fd(y + ty * offy, in->fd);
 			ft_putstr_fd("|", in->fd);
 			ft_putnbr_fd(x + tx * offx, in->fd);
 			ft_putstr_fd("|", in->fd);
 			ft_putchar_fd('\n', in->fd);
-
+*/
 				costp = 0;
 				star = 0;
 				i = -1; 
@@ -94,10 +94,10 @@ int		is_placeable(t_game *in, int y, int x, int *cost)
 					}
 				if (star == 1 && (!*cost || *cost > costp))
 		 		{
-					ft_putstr_fd("vals\n", in->fd);
+//					ft_putstr_fd("vals\n", in->fd);
 					in->p.y = y + ty * offy;
 					in->p.x = x + tx * offx;
-					ft_putstr_fd("|", in->fd);
+/*					ft_putstr_fd("|", in->fd);
 					ft_putnbr_fd(*cost, in->fd); 
 					ft_putstr_fd("|", in->fd);
 					ft_putnbr_fd(costp, in->fd);
@@ -107,7 +107,7 @@ int		is_placeable(t_game *in, int y, int x, int *cost)
 					ft_putnbr_fd(in->p.x, in->fd);
 					ft_putstr_fd("|", in->fd);
 					ft_putchar_fd('\n', in->fd);
-					*cost = costp;
+*/					*cost = costp;
 				}
 			}
 		}
@@ -136,22 +136,35 @@ void	size_fig(t_game *in)
 	}
 }
 
-void	approach(t_game *in)
+void	tkn_sz(t_game *in)
+{
+//	int g;
+
+	in->p.k = (in->tile.y > in->tile.x) ? in->tile.y : in->tile.x;
+/*	if (g <= 3)
+		in->p.k = 8;
+	else if (g <= 7)
+		in->p.k = 14;
+	else if (g <= 11)
+		in->p.k = 24;
+	else 
+		in->p.k = 31;*/
+}
+
+int		approach(t_game *in)
 {
 	int	x;
 	int	y;
 	int	fcost;
-	int	hcost;
 	int	cost;
 
 	y = -1;
 	cost = 0;
 	fcost = 0;
-	hcost = 0;
 	while (++y < in->board.y && (x = -1))
 		while (++x < in->board.x)
 			if ((in->heat_map[y][x][2] > 0) && // check for figure
-				(in->heat_map[y][x][1] <= 9 &&// change the view point depending on the token +-size
+				(in->heat_map[y][x][1] <= in->p.k &&
 				 in->heat_map[y][x][1] > 0) && // check how close i'm to the player
 				(!fcost || fcost >= in->heat_map[y][x][2])) // check if i should consider this cell
 				if ((!fcost || (fcost > in->heat_map[y][x][2]) ||
@@ -166,23 +179,30 @@ void	approach(t_game *in)
 						fcost = in->heat_map[y][x][2];
 					}
 	// should make a last try function
-	ft_putnbr(in->p.y);
-	ft_putchar(' ');
-	ft_putnbr(in->p.x);
-	ft_putchar('\n');
-	//place_fig(in);
+	return (cost);
 }
 
 void	player(t_game *in)
 {
 	int	strategy;
+	int	place;
 
 	strategy = check_map(in);
-	size_fig(in);
+	place = 0;
+	tkn_sz(in);
+//	size_fig(in);
 	if (strategy == 1)// !approached
-		approach(in);
+		place = approach(in);
 	else if (strategy == 2)
 		ft_putstr_fd("SURROUND", in->fd);
+	if (place)
+	{
+		ft_putnbr(in->p.y);
+		ft_putchar(' ');
+		ft_putnbr(in->p.x);
+		ft_putchar('\n');
+	}
+
 //	else if (strategy == 2)// approached
 //		conquer(in);
 //	else
