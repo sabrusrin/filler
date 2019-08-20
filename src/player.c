@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 00:38:01 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/17 01:12:30 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/20 22:37:47 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		check_map(t_game *in)
 	while (++y < in->board.y && (x = -1))
 		while (++x < in->board.x)
 		{
-			if (in->heat_map[y][x][2] != 0 && in->heat_map[y][x][2] < 5)//10
+			if (in->heat_map[y][x][2] != 0 && in->heat_map[y][x][2] < 4)//10
 				return (2);
 		//	else
 		//		return (1);
@@ -84,10 +84,9 @@ int		is_placeable(t_game *in, int y, int x, int *cost)
 					{	
 						if (in->heat_map[(y + ty * offy) + i][(x + tx * offx) + j][0] > 0 &&
 							(in->tile.data[i][j] == '*'))
-							costp += in->heat_map[(y + ty * offy) + i][(x + tx * offx) + j][2];
+							costp += in->heat_map[(y + ty * offy) + i][(x + tx * offx) + j][2];// changing here to 0, was 2
 						else if (in->heat_map[(y + ty * offy) + i][(x + tx * offx) + j][0] == -1 &&
-								(in->tile.data[i][j] == '*'))
-							star++;
+								(in->tile.data[i][j] == '*')) star++;
 						else if (in->heat_map[(y + ty * offy) + i][(x + tx * offx) + j][0] == 0 &&
 								(in->tile.data[i][j] == '*'))
 							break ;
@@ -140,7 +139,9 @@ void	tkn_sz(t_game *in)
 {
 //	int g;
 
-	in->p.k = (in->tile.y > in->tile.x) ? in->tile.y : in->tile.x;
+	in->p.k = (in->tile.y >= in->tile.x) ? in->tile.y : in->tile.x;
+	if (in->p.k > 7)
+		in->p.k /= 2;
 /*	if (g <= 3)
 		in->p.k = 8;
 	else if (g <= 7)
@@ -163,8 +164,8 @@ int		approach(t_game *in)
 	fcost = 0;
 	while (++y < in->board.y && (x = -1))
 		while (++x < in->board.x)
-			if ((in->heat_map[y][x][2] > 0) && // check for figure
-				(in->heat_map[y][x][1] <= in->p.k &&
+			if ((in->heat_map[y][x][0] > 0) && // check for figure
+				(in->heat_map[y][x][1] < in->p.k &&
 				 in->heat_map[y][x][1] > 0) && // check how close i'm to the player
 				(!fcost || fcost >= in->heat_map[y][x][2])) // check if i should consider this cell
 				if ((!fcost || (fcost > in->heat_map[y][x][2]) ||
