@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 19:05:00 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/19 23:27:13 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/21 23:08:13 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,15 @@ typedef struct		s_view
 	int				scale;
 	int				clr;
 }					t_view;
+
+typedef struct		s_game
+{
+	int				xy[2];
+	char			*p[2];
+	char			**map;
+	char			**token;
+	char			*status;
+}
 
 typedef struct		s_mlx
 {
