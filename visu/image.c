@@ -6,11 +6,11 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/04 21:18:33 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/19 23:27:46 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/22 16:36:55 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "visu.h"
 
 void	del_img(t_mlx *mlx)
 {
