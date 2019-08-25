@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 19:05:00 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/21 23:08:13 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/26 00:21:29 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@
 # define ABS(Value) (Value < 0) ? (-Value) : (Value)
 # define WIDTH  	1920
 # define HEIGHT 	1080
+
+# define CLR_TWO	0x2092F5
+# define CLR_TW		0x8FC8FA //light
+# define CLR_ONE	0xF58320	
+# define CLR_ON		0xFAC18F //ligth
 
 typedef struct		s_visu
 {
@@ -58,6 +63,16 @@ typedef struct		s_view
 	int				scale;
 	int				clr;
 }					t_view;
+
+typedef struct		s_fig
+{
+	char			**map;
+	char			**fig;
+	char			player;
+	int				colors[3];//light color/saturated/black(to cover light color)
+	typedef struct	*prev;
+	typedef struct	*next;
+}
 
 typedef struct		s_game
 {
