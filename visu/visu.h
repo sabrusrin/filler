@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 19:05:00 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/26 00:23:09 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/26 18:57:40 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,6 @@ typedef struct		s_img
 	int				lsize;
 }					t_img;
 
-typedef	struct		s_pt
-{
-	int				x;
-	int				y;
-	int				z;
-	t_color			color;
-}					t_pt;
-
 typedef struct		s_view
 {
 	float			offsetx;
@@ -83,13 +75,21 @@ typedef struct		s_game
 	char			*status;
 }					t_game;
 
+typedef struct		s_act
+{
+	int				space;
+	int				left;
+	int				right;
+}					t_act;
+
 typedef struct		s_mlx
 {
 	void			*iptr;
 	void			*wptr;
 	t_img			*img;
 	t_fig			*logs;
-	t_game			*info;
+	t_game			info;
+	t_act			key;
 	t_view			*view;
 	t_mtx			*mtx;
 }					t_mlx;

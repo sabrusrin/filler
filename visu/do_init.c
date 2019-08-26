@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 23:01:43 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/26 00:21:32 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/26 18:57:44 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,16 @@ void	purge(t_mlx *mlx)
 
 void	set_default(t_mlx *mlx)
 {//set default values here
-	mlx->view->offsetx = WIDTH / 2;
+	mlx->act.space = 0;
+	mlx->act.right = 0;
+	mlx->act.left = 0;
+/*	mlx->view->offsetx = WIDTH / 2;
 	mlx->view->offsety = HEIGHT / 5;
 	mlx->view->scale = 0.2;
 	mlx->view->clr = 1;
 	mlx->view->hz = 1;
 	mlx->view->line = dot_draw;
-	mlx->proj = iso;
+	mlx->proj = iso;*/
 }
 
 void	do_init(t_mlx *mlx)
