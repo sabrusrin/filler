@@ -37,7 +37,7 @@ typedef struct		s_visu
 	int				**color;
 	int				width;
 	int				height;
-	int				scale;
+	int				scale[3];
 }					t_visu;
 
 typedef struct		s_img
@@ -72,7 +72,7 @@ typedef struct		s_fig
 	int				colors[3];//light color/saturated/black(to cover light color)
 	typedef struct	*prev;
 	typedef struct	*next;
-}
+}					t_fig;
 
 typedef struct		s_game
 {
@@ -81,13 +81,15 @@ typedef struct		s_game
 	char			**map;
 	char			**token;
 	char			*status;
-}
+}					t_game;
 
 typedef struct		s_mlx
 {
 	void			*iptr;
 	void			*wptr;
 	t_img			*img;
+	t_fig			*logs;
+	t_game			*info;
 	t_view			*view;
 	t_mtx			*mtx;
 }					t_mlx;
