@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 19:05:00 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/26 18:57:40 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/28 03:54:55 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,20 @@ typedef struct		s_view
 	int				clr;
 }					t_view;
 
-typedef struct		s_fig
+typedef struct		s_log
 {
-	char			**map;
-	char			**fig;
+	void			*img[2];//image of the map and figure
+	t_img			img[2];
 	char			player;
 	int				colors[3];//light color/saturated/black(to cover light color)
-	typedef struct	*prev;
-	typedef struct	*next;
-}					t_fig;
+	struct s_log	*prev;
+	struct s_log	*next;
+}					t_log;
 
 typedef struct		s_game
 {
 	int				xy[2];
+	int				sq;
 	char			*p[2];
 	char			**map;
 	char			**token;
@@ -87,10 +88,11 @@ typedef struct		s_mlx
 	void			*iptr;
 	void			*wptr;
 	t_img			*img;
-	t_fig			*logs;
+	t_log			*log;
+	t_log			*tlog;
 	t_game			info;
 	t_act			key;
-	t_view			*view;
+	t_game			*visu;
 	t_mtx			*mtx;
 }					t_mlx;
 
