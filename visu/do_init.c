@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 23:01:43 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/28 03:54:58 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/29 19:44:46 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	purge(t_mlx *mlx)
 
 void	set_default(t_mlx *mlx)
 {//set default values here
-	mlx->act.space = 0;
+//	mlx->act.space = 0;
 	mlx->act.right = 0;
 	mlx->act.left = 0;
 	mlx->logs = NULL;

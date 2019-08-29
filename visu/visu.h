@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 19:05:00 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/28 03:54:55 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/29 19:47:09 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct		s_act
 	int				space;
 	int				left;
 	int				right;
+	int				opt;
 }					t_act;
 
 typedef struct		s_mlx

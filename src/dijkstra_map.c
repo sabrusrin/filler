@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 21:57:25 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/25 23:43:47 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/29 22:16:47 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	heat_map(t_game *in)
 	}
 	locate_players(in);
 	fill_cell(in);
-/*	ft_putstr_fd("|0|\n", in->fd);
+	ft_putstr_fd("|0|\n", in->fd);
 	y = -1;
 	while (++y < in->board.y)
 	{
@@ -152,5 +152,5 @@ void	heat_map(t_game *in)
 		ft_putchar_fd('\n', in->fd);
 	}
 	ft_putstr_fd("|2|\n", in->fd);
-*/
+
 }
