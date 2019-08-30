@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 20:10:54 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/28 15:13:06 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/30 14:03:12 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int		loop_press(t_mlx *mlx)
 {
 	t_log			*tmp;
 	static t_log	*rewind;
+
 	if (!mlx->log)
 	{
 		mlx->log = (t_log*)malloc(sizeof(t_log) * 1);
@@ -41,12 +42,9 @@ int		loop_press(t_mlx *mlx)
 		mlx->tlog = mlx->log;
 		if (mlx->act.left)
 			mlx->tlog =  prev;
-
 		mlx_put_image_to_window(mlx->iptr, mlx->wptr, mlx->tlog.img[0].ptr, x, y);
 		mlx_put_image_to_window(mlx->iptr, mlx->wptr, mlx->tlog.img[0].ptr, x, y);
-
 	}
-
 }
 
 int		key_press(int key, t_mlx *mlx)

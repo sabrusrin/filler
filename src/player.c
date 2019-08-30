@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 00:38:01 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/29 23:16:07 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/31 00:42:50 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		check_map(t_game *in)
 	while (++y < in->board.y && (x = -1))
 		while (++x < in->board.x)
 		{
-			if (in->heat_map[y][x][2] != 0 && in->heat_map[y][x][2] < 4)//10
+			if (in->heat[y][x][2] != 0 && in->heat[y][x][2] < 4)//10
 				return (2);
 		//	else
 		//		return (1);
@@ -47,8 +47,8 @@ int		is_placeable(t_game *in, int y, int x, int *cost, int flag)
 
 	if (flag)
 	{
-		offy = (y > 0 && in->heat_map[y - 1][x][0] > in->heat_map[y][x][0]) ? 1 : -1;
-		offx = (x > 0 && in->heat_map[y][x - 1][0] > in->heat_map[y][x][0]) ? 1 : -1;
+		offy = (y > 0 && in->heat[y - 1][x][0] > in->heat[y][x][0]) ? 1 : -1;
+		offx = (x > 0 && in->heat[y][x - 1][0] > in->heat[y][x][0]) ? 1 : -1;
 	}
 	else
 	{
@@ -70,13 +70,13 @@ int		is_placeable(t_game *in, int y, int x, int *cost, int flag)
 				while (++i < in->tile.y && (j = -1) && star <= 1)// is placeable
 					while (++j < in->tile.x && star <= 1)
 					{	
-						if (in->heat_map[(y + ty * offy) + i][(x + tx * offx) + j][0] > 0 &&
+						if (in->heat[(y + ty * offy) + i][(x + tx * offx) + j][0] > 0 &&
 							(in->tile.data[i][j] == '*'))
-							costp += in->heat_map[(y + ty * offy) + i][(x + tx * offx) + j][flag];// changing here to 0, was 2
-						else if (in->heat_map[(y + ty * offy) + i][(x + tx * offx) + j][0] == -1 &&
+							costp += in->heat[(y + ty * offy) + i][(x + tx * offx) + j][flag];// changing here to 0, was 2
+						else if (in->heat[(y + ty * offy) + i][(x + tx * offx) + j][0] == -1 &&
 								(in->tile.data[i][j] == '*'))
 							star++;
-						else if (in->heat_map[(y + ty * offy) + i][(x + tx * offx) + j][0] == 0 &&
+						else if (in->heat[(y + ty * offy) + i][(x + tx * offx) + j][0] == 0 &&
 								(in->tile.data[i][j] == '*'))
 						{
 						 	star = 2;
@@ -88,6 +88,8 @@ int		is_placeable(t_game *in, int y, int x, int *cost, int flag)
 					in->p.y = y + ty * offy;
 					in->p.x = x + tx * offx;
 					*cost = costp;
+//					ft_putnbr_fd(*cost, in->fd);
+//					ft_putchar_fd('\n', in->fd);
 				}
 			}
 		}
@@ -145,18 +147,18 @@ int		approach(t_game *in)
 	fcost = 0;
 	while (++y < in->board.y && (x = -1))
 		while (++x < in->board.x)
-			if ((in->heat_map[y][x][0] > 0) && // check for figure
-				(in->heat_map[y][x][1] <= in->p.k)) // check how close i'm to the player // check if i should consider this cell
-				if ((!fcost || (fcost > in->heat_map[y][x][2]) ||
-					((fcost == in->heat_map[y][x][2]) &&
-					(in->heat_map[in->p.p_y][in->p.p_x][0] >
-					 in->heat_map[y][x][0]))) &&
+			if ((in->heat[y][x][0] > 0) && // check for figure
+				(in->heat[y][x][1] <= in->p.k)) // check how close i'm to the player // check if i should consider this cell
+				if ((!fcost || (fcost > in->heat[y][x][2]) ||
+					((fcost == in->heat[y][x][2]) &&
+					(in->heat[in->p.p_y][in->p.p_x][0] >
+					 in->heat[y][x][0]))) &&
 					is_placeable(in, y, x, &cost, 2))
 					{
 //						ft_putstr_fd("!here!", in->fd);
 						in->p.p_y = y;
 						in->p.p_x = x;
-						fcost = in->heat_map[y][x][2];
+						fcost = in->heat[y][x][2];
 					}
 	// should make a last try function
 	return (cost);
@@ -174,8 +176,8 @@ int		surround(t_game *in)
 	y = -1;
 	while (++y < in->board.y && (x = -1))
 		while (++x < in->board.x)
-			if ((in->heat_map[y][x][0] > 0) && // check for figure
-				(in->heat_map[y][x][1] < in->p.k))
+			if ((in->heat[y][x][0] > 0) && // check for figure
+				(in->heat[y][x][1] <= in->p.k))
 					is_placeable(in, y, x, &cost, 0);
 	return (cost);
 }
@@ -193,18 +195,19 @@ void	player(t_game *in)
 		place = approach(in);
 	else if (strategy == 2)
 	{
+		ft_putstr_fd("SURROUND\n", in->fd);
 		place = surround(in);
-		ft_putstr_fd("SURROUND", in->fd);
 	}
 	if (place)
 	{
+		ft_putstr_fd("placed\n", in->fd);
 		ft_putnbr(in->p.y);
 		ft_putchar(' ');
 		ft_putnbr(in->p.x);
 		ft_putchar('\n');
 	}
 	else
-		exit (0);
+		exit (1);
 
 //	else if (strategy == 2)// approached
 //		conquer(in);

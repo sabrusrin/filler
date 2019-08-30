@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 20:16:34 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/16 14:52:55 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/30 14:03:07 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int		init_game(t_game *in)
 		in->tile.data = NULL;
 		in->board.x = 0;
 		in->board.y = 0;
+		in->p.strategy = 1;
 		return (1);
 	}
 	return (0);

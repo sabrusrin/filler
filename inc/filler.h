@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 22:06:55 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/17 01:13:03 by chermist         ###   ########.fr       */
+/*   Updated: 2019/08/31 00:38:53 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_player
 	int			y;// to place
 	int			x;
 	int			k;
+	int			strategy;
 	int			cost;
 }				t_player;
 
@@ -45,8 +46,9 @@ typedef struct	s_game
 {
 	int			fd;
 	int			fdm;
+	int			d;
 	char		player[2];
-	int			***heat_map;
+	int			***heat;
 	t_data		board;
 	t_data		tile;
 	t_player	p;
