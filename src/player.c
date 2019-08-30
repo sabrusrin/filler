@@ -45,8 +45,16 @@ int		is_placeable(t_game *in, int y, int x, int *cost, int flag)
 	int	costp;
 	int	star;
 
-	offy = (y > 0 && in->heat_map[y - 1][x][0] > in->heat_map[y][x][0]) ? 1 : -1;
-	offx = (x > 0 && in->heat_map[y][x - 1][0] > in->heat_map[y][x][0]) ? 1 : -1;
+	if (flag)
+	{
+		offy = (y > 0 && in->heat_map[y - 1][x][0] > in->heat_map[y][x][0]) ? 1 : -1;
+		offx = (x > 0 && in->heat_map[y][x - 1][0] > in->heat_map[y][x][0]) ? 1 : -1;
+	}
+	else
+	{
+			offy = 1;
+			offx = 1;
+	}
 	ty = -1;
 	costp = 0;
 	star = 0;
@@ -70,7 +78,10 @@ int		is_placeable(t_game *in, int y, int x, int *cost, int flag)
 							star++;
 						else if (in->heat_map[(y + ty * offy) + i][(x + tx * offx) + j][0] == 0 &&
 								(in->tile.data[i][j] == '*'))
+						{
+						 	star = 2;
 							break ;
+						}
 					}
 				if (star == 1 && (!*cost || *cost > costp))
 		 		{
@@ -135,8 +146,7 @@ int		approach(t_game *in)
 	while (++y < in->board.y && (x = -1))
 		while (++x < in->board.x)
 			if ((in->heat_map[y][x][0] > 0) && // check for figure
-				(in->heat_map[y][x][1] < in->p.k) && // check how close i'm to the player
-				(!fcost || fcost >= in->heat_map[y][x][2])) // check if i should consider this cell
+				(in->heat_map[y][x][1] <= in->p.k)) // check how close i'm to the player // check if i should consider this cell
 				if ((!fcost || (fcost > in->heat_map[y][x][2]) ||
 					((fcost == in->heat_map[y][x][2]) &&
 					(in->heat_map[in->p.p_y][in->p.p_x][0] >
@@ -167,13 +177,6 @@ int		surround(t_game *in)
 			if ((in->heat_map[y][x][0] > 0) && // check for figure
 				(in->heat_map[y][x][1] < in->p.k))
 					is_placeable(in, y, x, &cost, 0);
-/*				if ((!hcost || (hcost > in->heat_map[y][x][0]) ||
-					((hcost == in->heat_map[y][x][0]) &&
-					is_placeable(in, y, x, &cost, 0))))
-				{
-					ft_putstr_fd("!here!", in->fd);
-					hcost = in->heat_map[y][x][2];
-				}*/
 	return (cost);
 }
 
@@ -200,6 +203,8 @@ void	player(t_game *in)
 		ft_putnbr(in->p.x);
 		ft_putchar('\n');
 	}
+	else
+		exit (0);
 
 //	else if (strategy == 2)// approached
 //		conquer(in);

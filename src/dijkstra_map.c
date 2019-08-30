@@ -113,7 +113,7 @@ void	heat_map(t_game *in)
 	}
 	locate_players(in);
 	fill_cell(in);
-	ft_putstr_fd("|0|\n", in->fd);
+/*	ft_putstr_fd("|0|\n", in->fd);
 	y = -1;
 	while (++y < in->board.y)
 	{
@@ -138,7 +138,7 @@ void	heat_map(t_game *in)
 		}
 		ft_putchar_fd('\n', in->fd);
 	}
-	ft_putstr_fd("|1|\n", in->fd);
+	ft_putstr_fd("|1|\n", in->fd);*/
 	ft_putstr_fd("|2|\n", in->fd);
 	y = -1;
 	while (++y < in->board.y)
