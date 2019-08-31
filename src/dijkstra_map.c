@@ -89,7 +89,11 @@ void	wave_algo(t_game *in)
 					mark_map(in, y, x, 0);
 				if (in->heat[y][x][1] == i)
 					mark_map(in, y, x, 1);
-				in->heat[y][x][2] = in->heat[y][x][0] + in->heat[y][x][1];
+/*				if (in->heat[y][x][0] == 1000)
+					in->heat[y][x][0] = 0;
+				if (in->heat[y][x][1] == 1000)
+					in->heat[y][x][1] = 0;
+*/				in->heat[y][x][2] = in->heat[y][x][0] + in->heat[y][x][1];
 			}
 	}
 }
@@ -168,7 +172,7 @@ void	heat_map(t_game *in)
 	locate_players(in);
 	wave_algo(in);
 //	fill_cell(in);
-	ft_putstr_fd("|0|\n", in->fd);
+/*	ft_putstr_fd("|0|\n", in->fd);
 	y = -1;
 	while (++y < in->board.y)
 	{
@@ -181,7 +185,7 @@ void	heat_map(t_game *in)
 		ft_putchar_fd('\n', in->fd);
 	}
 	ft_putstr_fd("|0|\n", in->fd);
-/*	ft_putstr_fd("|1|\n", in->fd);
+	ft_putstr_fd("|1|\n", in->fd);
 	y = -1;
 	while (++y < in->board.y)
 	{

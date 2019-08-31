@@ -23,7 +23,7 @@ int		check_map(t_game *in)
 	while (++y < in->board.y && (x = -1))
 		while (++x < in->board.x)
 		{
-			if (in->heat[y][x][2] != 0 && in->heat[y][x][2] < 4)//10
+			if (in->heat[y][x][2] != -1 && in->heat[y][x][2] < 4)// != 0
 				return (2);
 		//	else
 		//		return (1);
@@ -148,6 +148,7 @@ int		approach(t_game *in)
 	while (++y < in->board.y && (x = -1))
 		while (++x < in->board.x)
 			if ((in->heat[y][x][0] > 0) && // check for figure
+				(in->heat[y][x][1] < 1000) &&
 				(in->heat[y][x][1] <= in->p.k)) // check how close i'm to the player // check if i should consider this cell
 				if ((!fcost || (fcost > in->heat[y][x][2]) ||
 					((fcost == in->heat[y][x][2]) &&
@@ -177,6 +178,7 @@ int		surround(t_game *in)
 	while (++y < in->board.y && (x = -1))
 		while (++x < in->board.x)
 			if ((in->heat[y][x][0] > 0) && // check for figure
+				(in->heat[y][x][1] < 1000) &&
 				(in->heat[y][x][1] <= in->p.k))
 					is_placeable(in, y, x, &cost, 0);
 	return (cost);
