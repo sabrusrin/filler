@@ -6,27 +6,11 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 20:16:34 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/30 14:03:07 by chermist         ###   ########.fr       */
+/*   Updated: 2019/09/01 02:54:41 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
-
-void	play_token(t_game *in)
-{
-	int		y;
-	int		x;
-
-	y = 12;
-	x = 14;
-	heat_map(in);
-	player(in);
-//	place_it(in);
-//	ft_putnbr(y);
-//	ft_putchar(' ');
-//	ft_putnbr(x);
-//	ft_putchar('\n');
-}
 
 void	free_token(t_data *token)
 {
@@ -59,7 +43,7 @@ void	play(t_game *in)
 		{
 			dims(&line, &in->tile.x, &in->tile.y, 6);
 			save_data(&(in->tile), 0);
-			play_token(in);
+			player(in);
 		}
 		ft_strdel(&line);
 	}
