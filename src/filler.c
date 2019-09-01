@@ -6,43 +6,32 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 20:16:34 by chermist          #+#    #+#             */
-/*   Updated: 2019/09/01 02:54:41 by chermist         ###   ########.fr       */
+/*   Updated: 2019/09/01 18:08:51 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void	free_token(t_data *token)
-{
-	int	y;
-
-	y = 0;
-	if (token->data && *(token->data))
-	{
-		while (token->data[y])
-			ft_strdel(&(token->data[y++]));
-		free((token->data));
-		token->data = NULL;
-	}
-}
-
 void	play(t_game *in)
 {
 	char	*line;
+	int		val;
 
 	line = NULL;
-	while (get_next_line(0, &line))
+	while ((val = get_next_line(0, &line)))
 	{
+		if (val == -1)
+			err_handle(2, in);
 		if (ft_strstr(line, "Plateau"))
 		{
 			if (in->board.x == 0 && in->board.y == 0)
 				dims(&line, &in->board.x, &in->board.y, 8);
-			save_data(&(in->board), 4);
+			save_data(&(in->board), in, 4);
 		}
 		if (ft_strstr(line, "Piece"))
 		{
 			dims(&line, &in->tile.x, &in->tile.y, 6);
-			save_data(&(in->tile), 0);
+			save_data(&(in->tile), in, 0);
 			player(in);
 		}
 		ft_strdel(&line);
@@ -63,6 +52,8 @@ int		init_game(t_game *in)
 		in->tile.data = NULL;
 		in->board.x = 0;
 		in->board.y = 0;
+		in->p.x = 0;
+		in->p.y = 0;
 		in->p.strategy = 1;
 		return (1);
 	}

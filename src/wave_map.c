@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 21:57:25 by chermist          #+#    #+#             */
-/*   Updated: 2019/09/01 17:44:50 by chermist         ###   ########.fr       */
+/*   Updated: 2019/09/01 18:36:11 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	free_wave(t_game *in)
 			free(in->heat[y][x]);
 			in->heat[y][x] = NULL;
 		}
-		free(in->heat[y]);
-		in->heat[y] = NULL;
+//		free(in->heat[y]);
+//		in->heat[y] = NULL;
 	}
 	if (in->heat)
 	{
@@ -124,58 +124,18 @@ void	wave_map(t_game *in)
 	if (!inited)
 	{
 		if (!(in->heat = (int***)malloc(sizeof(int**) * in->board.y)))
-			err_handle(1);
+			err_handle(1, in);
 		while (++y < in->board.y)
 		{
 			if (!(in->heat[y] = (int**)malloc(sizeof(int*) * in->board.x)))
-				err_handle(1);
+				err_handle(1, in);
 			x = -1;
 			while (++x < in->board.x)
 				if (!(in->heat[y][x] = (int*)malloc(sizeof(int) * 3)))
-					err_handle(1);
+					err_handle(1, in);
 		}
 		inited = 1;
 	}
 	locate_players(in);
 	wave_algo(in);
-/*	ft_putstr_fd("|0|\n", in->fd);
-	y = -1;
-	while (++y < in->board.y)
-	{
-		x = -1;
-		while (++x < in->board.x)
-		{
-			ft_putnbr_fd((in->heat)[y][x][0], in->fd);
-			ft_putchar_fd(' ', in->fd);
-		}
-		ft_putchar_fd('\n', in->fd);
-	}
-	ft_putstr_fd("|0|\n", in->fd);
-	ft_putstr_fd("|1|\n", in->fd);
-	y = -1;
-	while (++y < in->board.y)
-	{
-		x = -1;
-		while (++x < in->board.x)
-		{
-			ft_putnbr_fd((in->heat)[y][x][1], in->fd);
-			ft_putchar_fd(' ', in->fd);
-		}
-		ft_putchar_fd('\n', in->fd);
-	}
-	ft_putstr_fd("|1|\n", in->fd);
-	ft_putstr_fd("|2|\n", in->fd);
-	y = -1;
-	while (++y < in->board.y)
-	{
-		x = -1;
-		while (++x < in->board.x)
-		{
-			ft_putnbr_fd((in->heat)[y][x][2], in->fd);
-			ft_putchar_fd(' ', in->fd);
-		}
-		ft_putchar_fd('\n', in->fd);
-	}
-	ft_putstr_fd("|2|\n", in->fd);
-*/
 }

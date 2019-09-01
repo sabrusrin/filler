@@ -6,7 +6,7 @@
 #    By: chermist <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:07:03 by chermist          #+#    #+#              #
-#    Updated: 2019/09/01 02:59:17 by chermist         ###   ########.fr        #
+#    Updated: 2019/09/01 18:00:14 by chermist         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCDIR = src
 SRC =	main.c			\
 		filler.c		\
 		parse.c			\
-		dijkstra_map.c	\
+		wave_map.c	\
 		support.c		\
 		player.c
 
