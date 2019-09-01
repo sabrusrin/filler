@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 21:57:25 by chermist          #+#    #+#             */
-/*   Updated: 2019/09/01 18:36:11 by chermist         ###   ########.fr       */
+/*   Updated: 2019/09/01 20:05:02 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	free_wave(t_game *in)
 {
 	int	y;
 	int	x;
-	
+
 	y = -1;
 	while (++y < in->board.y && in->heat[y])
 	{
@@ -26,8 +26,6 @@ void	free_wave(t_game *in)
 			free(in->heat[y][x]);
 			in->heat[y][x] = NULL;
 		}
-//		free(in->heat[y]);
-//		in->heat[y] = NULL;
 	}
 	if (in->heat)
 	{

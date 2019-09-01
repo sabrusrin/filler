@@ -6,12 +6,13 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 13:49:30 by chermist          #+#    #+#             */
-/*   Updated: 2019/09/01 18:36:06 by chermist         ###   ########.fr       */
+/*   Updated: 2019/09/01 20:06:10 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
-void	err_handle(int	i, t_game *in)
+
+void	err_handle(int i, t_game *in)
 {
 	if (i == 1)
 		ft_putstr_fd("Cannot allocate memory!", 2);

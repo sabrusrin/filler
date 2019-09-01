@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 17:18:45 by chermist          #+#    #+#             */
-/*   Updated: 2019/09/01 18:36:12 by chermist         ###   ########.fr       */
+/*   Updated: 2019/09/01 20:05:47 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	save_data(t_data *save, t_game *in, int flag)
 	while (j--)
 	{
 		if ((val = get_next_line(0, &line)) == -1)
-			err_handle(2, in);	
+			err_handle(2, in);
 		if (line && (line[0] != ' ' || flag == 0))
 		{
 			save->data[i] = ft_strnew(sizeof(char) * save->x);
