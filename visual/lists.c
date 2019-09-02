@@ -6,13 +6,13 @@
 /*   By: lkarlon- <lkarlon-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 19:13:38 by lkarlon-          #+#    #+#             */
-/*   Updated: 2019/09/02 15:27:54 by chermist         ###   ########.fr       */
+/*   Updated: 2019/09/02 20:01:23 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-t_img	*new_img(int height, char *first_str, t_img *start_list)
+t_img	*new_img(int height, char **first_str, t_img *start_list)
 {
 	t_img	*new;
 	char	*str;
@@ -22,7 +22,9 @@ t_img	*new_img(int height, char *first_str, t_img *start_list)
 	new = ft_memalloc(sizeof(t_img));
 	new->next = NULL;
 	new->field = ft_memalloc(sizeof(char*) * (height + 1));
-	new->field[++i] = ft_strcccpy(first_str + 4, '\n');
+	new->field[++i] = ft_strcccpy(*first_str + 4, '\n');
+	if (*first_str)
+		ft_strdel(first_str);
 	while(get_next_line(0, &str) && ft_isdigit(*str))
 	{
 		new->field[++i] = ft_strcccpy(str + 4, '\n');
@@ -76,7 +78,7 @@ t_img	*create_first(int height)
 	new->next = NULL;
 	return (new);
 }
-
+/*
 t_img	*make_list(t_win *win)
 {
 	int			height;
@@ -85,7 +87,7 @@ t_img	*make_list(t_win *win)
 	char		*str;
 	
 	height = map_count(win);
-	win->height = height;
+	win->dat.height = height;
 	block = create_first(height);
 	start_list = block;
 	while (get_next_line(0, &str))
@@ -95,5 +97,4 @@ t_img	*make_list(t_win *win)
 		ft_strdel(&str);
 	}
 	return (start_list);
-}
-
+}*/
