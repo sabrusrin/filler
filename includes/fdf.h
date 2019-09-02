@@ -6,7 +6,7 @@
 /*   By: lkarlon- <lkarlon-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 16:19:48 by lkarlon-          #+#    #+#             */
-/*   Updated: 2019/09/01 20:44:09 by chermist         ###   ########.fr       */
+/*   Updated: 2019/09/02 12:01:10 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,28 @@ typedef	struct		s_img
 	struct s_img	*prev;
 }					t_img;
 
-typedef struct	s_win
+typedef struct		s_key
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	int			*img_ptr;
-	int			*addr;
-	int			height;
-	int			width;
-	t_img		*start;
-	t_img		*save;
-}				t_win;
+	int				right;
+	int				left;
+	int				space;
+}					t_key;
 
-t_img	*make_list(t_win *win);
-char	*ft_strcccpy(char *src, char n);
+typedef struct		s_win
+{
+	void			*mlx_ptr;
+	void			*win_ptr;
+	int				*img_ptr;
+	int				*addr;
+	int				height;
+	int				width;
+	t_key			keys;
+	t_img			*block;
+	t_img			*start;
+	t_img			*save;
+}					t_win;
+
+t_img				*make_list(t_win *win);
+char				*ft_strcccpy(char *src, char n);
 
 #endif

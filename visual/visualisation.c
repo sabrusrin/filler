@@ -6,7 +6,7 @@
 /*   By: lkarlon- <lkarlon-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 18:27:01 by lkarlon-          #+#    #+#             */
-/*   Updated: 2019/09/01 22:21:38 by chermist         ###   ########.fr       */
+/*   Updated: 2019/09/02 15:27:54 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_win		*win_init(char *s)
 	win->win_ptr = mlx_new_window(win->mlx_ptr, W, H, s);
 	win->img_ptr = (int*)mlx_new_image(win->mlx_ptr, W, H);
 	win->addr = (int*)mlx_get_data_addr(win->img_ptr, &bits, &size, &endian);
+	win->keys.right = 1;
+	win->keys.left = 0;
 	return (win);
 }
 
@@ -109,42 +111,79 @@ int key_hook(int key, t_win *win)
 {
 	if (key == 53)
 		exit(0);
-	ft_bzero(win->addr, H * W * 4);
-	mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, win->img_ptr, 0, 0);
 	if (key == 124)
 	{
-		print_square(win);
-		if(win->start->next)
-			win->start = win->start->next;
+		win->keys.right = (win->keys.right) ? 0 : 1;
+		win->keys.left = 0;
 	}
 	if (key == 123)
 	{	
-		if(win->start->prev)
-			win->start = win->start->prev;
-		print_square(win);
+		win->keys.left = (win->keys.left) ? 0 : 1;
+		win->keys.right = 0;
 	}
 	if (key == 15)
 	{
 		win->start = win->save;
 		print_square(win);
 	}
-	draw_net(win);
-	mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, win->img_ptr, 0, 0);
-	print_strings(win);
+	if (key == 49)
+	{
+		win->keys.space = (win->keys.space) ? 0 : 1;
+	}
 	return (0);
+}
+
+int		loop_hook(t_win *win)
+{
+	char	*str;
+	
+	if (get_next_line(0, &str))
+	{
+		if (ft_isdigit(*str))
+			win->block = new_img(win->height, str, win->block);
+		if (str)
+			ft_strdel(&str);
+	}
+	if (win->keys.space && (win->keys.right || win->keys.left))
+	{
+		//add here some key logic and everything will work!
+		ft_bzero(win->addr, H * W * 4);
+		mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, win->img_ptr, 0, 0);
+		
+		if (win->keys.right)
+		{
+			print_square(win);
+			if(win->start->next)
+				win->start = win->start->next;
+		}
+		if (win->keys.light)
+		{
+			if(win->start->prev)
+				win->start = win->start->prev;
+			print_square(win);
+		}
+		draw_net(win);
+		mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, win->img_ptr, 0, 0);
+		print_strings(win);
+	}
 }
 
 int		main()
 {
 	t_win		*win;
+	t_img		*block;
+	t_img		*start_list;
 
 	win = win_init("Welcome to filler!");
-	win->start = make_list(win);
+	win->height = map_count(win);
+	win->block = create_first(win->height);
+	win->start = win->block;
+	//win->start = make_list(win);
 	win->save = win->start;
 	draw_net(win);
-	print_strings(win);
+//	print_strings(win);
 	mlx_key_hook(win->win_ptr, key_hook, win);
-//	mlx_loop_hook()
+	mlx_loop_hook(loop_hook, win);
 	mlx_loop(win->mlx_ptr);
 	return (0);
 }
