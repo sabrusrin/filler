@@ -6,17 +6,32 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 17:18:45 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/11 00:29:56 by chermist         ###   ########.fr       */
+/*   Updated: 2019/09/01 20:05:47 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void	save_data(t_data *save, int flag)
+void	free_token(t_data *token)
+{
+	int	y;
+
+	y = 0;
+	if (token->data && *(token->data))
+	{
+		while (token->data[y])
+			ft_strdel(&(token->data[y++]));
+		free((token->data));
+		token->data = NULL;
+	}
+}
+
+void	save_data(t_data *save, t_game *in, int flag)
 {
 	char	*line;
 	int		i;
 	int		j;
+	int		val;
 
 	i = 0;
 	j = (!flag) ? save->y : save->y + 1;
@@ -25,7 +40,8 @@ void	save_data(t_data *save, int flag)
 	save->data[save->y] = NULL;
 	while (j--)
 	{
-		get_next_line(0, &line);
+		if ((val = get_next_line(0, &line)) == -1)
+			err_handle(2, in);
 		if (line && (line[0] != ' ' || flag == 0))
 		{
 			save->data[i] = ft_strnew(sizeof(char) * save->x);

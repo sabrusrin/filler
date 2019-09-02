@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 00:38:01 by chermist          #+#    #+#             */
-/*   Updated: 2019/09/01 02:54:14 by chermist         ###   ########.fr       */
+/*   Updated: 2019/09/02 17:56:52 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,6 @@ int		check_map(t_game *in)
 				return (2);
 		}
 	return (1);
-}
-
-void	size_fig(t_game *in)
-{
-	int	x;
-	int	y;
-	int	val;
-
-	in->p.r_x = 0;
-	in->p.r_x = 0;
-	y = -1;
-	while (++y < in->tile.y)
-	{
-		val = 0;
-		x = -1;
-		while (++x < in->tile.x)
-			if (in->tile.data[y][x] == '*')
-				val++;
-		in->p.r_x = (in->p.r_x < val) ? val : in->p.r_x;
-		in->p.r_y += (val) ? 1 : 0;
-	}
 }
 
 int		is_valid(t_game *in, int y, int x, int flag)
@@ -108,23 +87,17 @@ void	player(t_game *in)
 	int	strategy;
 	int	place;
 
-	heat_map(in);
+	wave_map(in);
 	strategy = check_map(in);
 	place = 0;
-//	size_fig(in);
-	if (strategy == 1)//apr
+	if (strategy == 1)
 		place = is_placeable(in, 2);
 	else if (strategy == 2)
 	{
-		place = is_placeable(in, 0);// or 2
+		place = is_placeable(in, 0);
 	}
-	if (place)
-	{
-		ft_putnbr(in->p.y);
-		ft_putchar(' ');
-		ft_putnbr(in->p.x);
-		ft_putchar('\n');
-	}
-	else
-		exit(1);
+	ft_putnbr(in->p.y);
+	ft_putchar(' ');
+	ft_putnbr(in->p.x);
+	ft_putchar('\n');
 }
