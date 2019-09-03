@@ -6,7 +6,7 @@
 /*   By: lkarlon- <lkarlon-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 16:19:48 by lkarlon-          #+#    #+#             */
-/*   Updated: 2019/09/02 20:01:22 by chermist         ###   ########.fr       */
+/*   Updated: 2019/09/03 13:28:27 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@
 # include <fcntl.h>
 # include "../libft/includes/libft.h"
 # include "../minilibx_macos/mlx.h"
-# define NET	7//10
-# define H	720//1080
-# define W	1280//1920
+# define H	1080
+# define W	1920
 # define SYM "1234567890 \n"
 
 
@@ -45,7 +44,8 @@ typedef struct		s_dat
 	int				net;
 	int				loc_y;
 	int				loc_x;
-
+	int				img_w;
+	int				img_h;
 }					t_dat;
 
 typedef struct		s_win
@@ -63,8 +63,18 @@ typedef struct		s_win
 
 t_img				*make_list(t_win *win);
 t_img				*new_img(int height, char **first_str, t_img *start_list);
-int					map_count(t_win *win);
 t_img				*create_first(int height);
+int					map_count(t_win *win);
+
 char				*ft_strcccpy(char *src, char n);
+
+t_win				*win_init(char *s);
+void				purge(t_win *win);
+void				img_create(t_win *win);
+
+void				draw_net(t_win *win);
+void				draw(t_win	*win);
+void				print_strings(t_win *win);
+void				print_square(t_win *win);
 
 #endif

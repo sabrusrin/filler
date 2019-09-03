@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 00:38:01 by chermist          #+#    #+#             */
-/*   Updated: 2019/09/02 17:56:52 by chermist         ###   ########.fr       */
+/*   Updated: 2019/09/03 11:58:11 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	player(t_game *in)
 		place = is_placeable(in, 2);
 	else if (strategy == 2)
 	{
-		place = is_placeable(in, 0);
+		place = is_placeable(in, 2);
 	}
 	ft_putnbr(in->p.y);
 	ft_putchar(' ');

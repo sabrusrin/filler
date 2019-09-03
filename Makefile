@@ -6,7 +6,7 @@
 #    By: chermist <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:07:03 by chermist          #+#    #+#              #
-#    Updated: 2019/09/01 18:00:14 by chermist         ###   ########.fr        #
+#    Updated: 2019/09/03 13:20:33 by chermist         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ vpath %.c $(SRCDIR)
 all: DEPS $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(INCDIR) $(LIBDIR) $(LIB) $(OBJ) -o $@
+	$(CC) $(CFLAGS) $(INCDIR) $(LIBDIR) $(LIB) $(OBJ) -o $@
 
 DEPS:
 	make -C libft/
