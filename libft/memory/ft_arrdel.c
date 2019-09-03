@@ -6,7 +6,7 @@
 /*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 22:56:53 by chermist          #+#    #+#             */
-/*   Updated: 2019/01/11 22:01:46 by chermist         ###   ########.fr       */
+/*   Updated: 2019/09/03 14:55:34 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ void	*ft_arrdel(void **res)
 {
 	void	**tmp;
 
-	tmp = res;
-	while (res && *res)
-		free(*res++);
-	free(tmp);
-	tmp = NULL;
+	tmp = *res;
+	if (res && *res)
+	{
+		while (*res)
+			ft_memdel(*res++);
+		ft_memdel(tmp);
+	}
 	return (tmp);
 }

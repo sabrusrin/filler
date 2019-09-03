@@ -1,77 +1,110 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   visualize.c                                        :+:      :+:    :+:   */
+/*   visualisation.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chermist <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lkarlon- <lkarlon-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/19 20:10:54 by chermist          #+#    #+#             */
-/*   Updated: 2019/08/30 14:03:12 by chermist         ###   ########.fr       */
+/*   Created: 2019/03/26 18:27:01 by lkarlon-          #+#    #+#             */
+/*   Updated: 2019/09/03 18:04:13 by chermist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visu.h"
 
-int		loop_press(t_mlx *mlx)
+char	*ft_strcccpy(char *src, char n)
 {
-	t_log			*tmp;
-	static t_log	*rewind;
+	int		i;
+	int		count;
+	char	*dst;
 
-	if (!mlx->log)
-	{
-		mlx->log = (t_log*)malloc(sizeof(t_log) * 1);
-		create_image(mlx, &mlx->log.img[0]);
-		mlx->log->next = NULL;
-		mlx->log->prev = NULL;
-	}
-	else
-	{
-		tmp = mlx->log;
-		mlx->log = (t_log*)malloc(sizeof(t_log) * 1);
-		tmp->next = mlx->log;
-		mlx->log->prev = tmp;
-		create_image(mlx, &mlx->log.img[0]);
-		mlx->log->next = NULL;
-	}
-	// read the map and put it to the image
-	// put image of a map  to the window
-	// put image of a figures to the window
-	create_image(mlx, &mlx->log.img[1]);
-	if (mlx->act.space)
-	{
-		mlx->tlog = mlx->log;
-		if (mlx->act.left)
-			mlx->tlog =  prev;
-		mlx_put_image_to_window(mlx->iptr, mlx->wptr, mlx->tlog.img[0].ptr, x, y);
-		mlx_put_image_to_window(mlx->iptr, mlx->wptr, mlx->tlog.img[0].ptr, x, y);
-	}
+	count = 0;
+	i = -1;
+	while (src[++i] && src[i] != n)
+		count++;
+	dst = (char*)malloc(sizeof(char) * (count + 1));
+	ft_memcpy(dst, src, count);
+	dst[count] = '\0';
+	return (dst);
 }
 
-int		key_press(int key, t_mlx *mlx)
+int		key_hook(int key, t_win *win)
 {
 	if (key == KEY_ESCAPE)
 	{
-		purge(mlx);
-		exit(1);
+		purge(win);
+		exit(0);
 	}
-	else if (key == KEY_SPACEBAR)
-		mlx->act.space = (mlx->act.space) ? 0 : 1;
-	else if (key == KEY_RIGHT)
-		mlx->act.right = (mlx->act.right) ? 0 : 1;
-	else if (key == KEY_LEFT)
-		mlx->act.left = (mlx->act.left) ? 0 : 1;
+	if (key == KEY_RIGHT)
+	{
+		win->keys.right = (win->keys.right) ? 0 : 1;
+		win->keys.left = 0;
+	}
+	if (key == KEY_LEFT)
+	{
+		win->keys.left = (win->keys.left) ? 0 : 1;
+		win->keys.right = 0;
+	}
+	if (key == KEY_R)
+	{
+		win->start = win->save;
+		print_square(win);
+	}
 	return (0);
+}
+
+int		loop_hook(t_win *win)
+{
+	char	*str;
+
+	if (get_next_line(0, &str))
+	{
+		if (ft_isdigit(*str))
+			win->block = new_img(win->dat.height, &str, win->block);
+		else if (ft_strstr(str, "== O fin:"))
+		{
+			win->fin[0] = ft_atoi(str + 10);
+			ft_strdel(&str);
+			get_next_line(0, &str);
+			win->fin[1] = ft_atoi(str + 10);
+		}
+		if (str)
+			ft_strdel(&str);
+	}
+	if (win->keys.right || win->keys.left)
+		draw(win);
+	return (0);
+}
+
+void	fig_size(t_win *win)
+{
+	if (win->dat.height == 15)
+		win->dat.net = 58;
+	if (win->dat.height == 24)
+		win->dat.net = 25;
+	if (win->dat.height == 100)
+		win->dat.net = 10;
+	win->dat.img_w = win->dat.width * win->dat.net;
+	win->dat.img_h = win->dat.height * win->dat.net;
+	win->dat.loc_y = (H / 2) - (win->dat.img_h / 2);
+	win->dat.loc_x = (W / 2) - (win->dat.img_w / 2);
 }
 
 int		main(void)
 {
-//	t_game visu;
-	t_mlx mlx;
+	t_win		*win;
 
-	parse(&mlx.visu);
-	do_init(&mlx);
-//	draw(&visu, &mlx);
-	mlx_hook(mlx.wptr, 2, 0, key_press, &mlx);
-	mlx_loop_hook(mlx.iptr, loop_press, &mlx);
-	mlx_loop(mlx.iptr)
+	win = win_init("Welcome to filler!");
+	win->dat.height = map_count(win);
+	fig_size(win);
+	img_create(win);
+	win->block = create_first(win->dat.height);
+	win->start = win->block;
+	win->save = win->start;
+	draw_net(win);
+	print_strings(win);
+	mlx_key_hook(win->win_ptr, key_hook, win);
+	mlx_loop_hook(win->mlx_ptr, loop_hook, win);
+	mlx_loop(win->mlx_ptr);
+	return (0);
 }
