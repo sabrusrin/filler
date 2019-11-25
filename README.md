@@ -1,5 +1,5 @@
 # filler
-#### my nickname - chermist
+#### my 42 nickname - chermist
 Use make to build project.
 
 ### To run a game:
