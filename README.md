@@ -13,8 +13,7 @@ To run a game with visualisation(currently works on MacOs only):
 ![map01](https://raw.githubusercontent.com/sabrusrin/filler/master/images/map01.png)
 ![map02](https://raw.githubusercontent.com/sabrusrin/filler/master/images/map02.png)
 
-FillerVM Usage:
-Usage: ./filler_vm -f path [-i | -p1 path | -p2 path] [-s | -q | -t time]
+FillerVM Usage: ./filler_vm -f path [-i | -p1 path | -p2 path] [-s | -q | -t time]
 
    -t  --time		set timeout in second
    -q  --quiet		quiet mode
