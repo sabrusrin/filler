@@ -6,11 +6,11 @@
 #    By: chermist <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:07:03 by chermist          #+#    #+#              #
-#    Updated: 2019/09/03 18:01:33 by chermist         ###   ########.fr        #
+#    Updated: 2019/11/25 20:57:20 by chermist         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ../resources/visu
+NAME = ../visu
 
 CC = gcc
 

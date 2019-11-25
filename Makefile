@@ -6,11 +6,11 @@
 #    By: chermist <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:07:03 by chermist          #+#    #+#              #
-#    Updated: 2019/09/03 13:20:33 by chermist         ###   ########.fr        #
+#    Updated: 2019/11/25 20:58:55 by chermist         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = resources/players/chermist.filler
+NAME = players/chermist.filler
 
 CC = gcc
 
@@ -38,19 +38,22 @@ vpath %.c $(SRCDIR)
 all: DEPS $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(INCDIR) $(LIBDIR) $(LIB) $(OBJ) -o $@
+	@$(CC) $(CFLAGS) $(INCDIR) $(LIBDIR) $(LIB) $(OBJ) -o $@
 
 DEPS:
 	make -C libft/
+	make -C visualizer/
 
 %.o: %.c %.h
 
 clean:
 	make -C libft $@
+	make -C visualizer $@
 	rm -f $(OBJ)
 
 fclean: clean
 	make -C libft $@
+	make -C visualizer $@
 	rm -f $(NAME)
 
 re: fclean all
