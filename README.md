@@ -1,7 +1,7 @@
 # filler
 #### my 42 nickname - chermist
 Use make to build project.  
-Code written in norminette code style(github.com/sabrusrin/norme)
+>Code written in norminette code style(github.com/sabrusrin/norme)
 
 ### • How the game works  
   ◦ At each turn, the filler will send the updated map and a new token to the player concerned.  
