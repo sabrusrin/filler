@@ -10,7 +10,19 @@
 ##### I used wave algorithm to find the best position to put my token so it will cut an escape route for enemy.  
 ##### For visualisation I used a minilibx(ecole42 graphic library) that gives a functions to create/destroy/clear window, to put a pixel to the window I created and to work with keyboard/mouse events.
 Use make to build project on macos.
-#### If you want to build project on linux machine, follow these steps:
+
+### To run a game:
+```
+./filler_vm -f maps/map01 -p2 players/chermist.filler -p1 players/superjeannot.filler
+```
+### To run a game with visualisation:
+```
+./filler_vm -f maps/map01 -p2 players/chermist.filler -p1 players/superjeannot.filler | ./visu
+```
+![map01](https://raw.githubusercontent.com/sabrusrin/filler/master/images/map01.png)
+![map02](https://raw.githubusercontent.com/sabrusrin/filler/master/images/map02.png)
+
+#### If you want to use visualisation on linux machine, follow these steps:
 ```
 1) Update/upgrade your system:
   apt-get update
@@ -24,17 +36,6 @@ Use make to build project on macos.
 4) Use make command: make linux
 Hope it will work :)
 ```
-
-### To run a game:
-```
-./filler_vm -f maps/map01 -p2 players/chermist.filler -p1 players/superjeannot.filler
-```
-### To run a game with visualisation:
-```
-./filler_vm -f maps/map01 -p2 players/chermist.filler -p1 players/superjeannot.filler | ./visu
-```
-![map01](https://raw.githubusercontent.com/sabrusrin/filler/master/images/map01.png)
-![map02](https://raw.githubusercontent.com/sabrusrin/filler/master/images/map02.png)
 
 ### FillerVM Usage:  
 ```
