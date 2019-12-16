@@ -1,6 +1,5 @@
 # filler
-#### my 42 nickname - chermist
-Use make to build project.  
+#### my 42 nickname - chermist  
 >Code written in norminette code style(github.com/sabrusrin/norme)
 
 ### • How the game works  
@@ -10,12 +9,27 @@ Use make to build project.
   
 ##### I used wave algorithm to find the best position to put my token so it will cut an escape route for enemy.  
 ##### For visualisation I used a minilibx(ecole42 graphic library) that gives a functions to create/destroy/clear window, to put a pixel to the window I created and to work with keyboard/mouse events.
+Use make to build project on macos.
+#### If you want to build project on linux machine, follow these steps:
+```
+1) Update/upgrade your system:
+  apt-get update
+  apt-get upgrade
+
+2) Install the following packages:
+  apt-get install libx11-dev
+  apt-get install libxext-dev
+
+3) ./configure
+4) Use make command: make linux
+Hope it will work :)
+```
 
 ### To run a game:
 ```
 ./filler_vm -f maps/map01 -p2 players/chermist.filler -p1 players/superjeannot.filler
 ```
-### To run a game with visualisation(currently works on MacOs only):
+### To run a game with visualisation:
 ```
 ./filler_vm -f maps/map01 -p2 players/chermist.filler -p1 players/superjeannot.filler | ./visu
 ```
