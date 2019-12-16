@@ -19,9 +19,6 @@ Use make to build project on macos.
 ```
 ./filler_vm -f maps/map01 -p2 players/chermist.filler -p1 players/superjeannot.filler | ./visu
 ```
-![map01](https://raw.githubusercontent.com/sabrusrin/filler/master/images/map01.png)
-![map02](https://raw.githubusercontent.com/sabrusrin/filler/master/images/map02.png)
-
 #### If you want to use visualisation on linux machine, follow these steps:
 ```
 1) Update/upgrade your system:
@@ -36,6 +33,10 @@ Use make to build project on macos.
 4) Use make command: make linux
 Hope it will work :)
 ```
+
+![map01](https://raw.githubusercontent.com/sabrusrin/filler/master/images/map01.png)
+![map02](https://raw.githubusercontent.com/sabrusrin/filler/master/images/map02.png)
+
 
 ### FillerVM Usage:  
 ```
